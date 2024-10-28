@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sup de Cuisine - Recettes</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>Sup de Cuisine</h1>
+        <input type="text" id="search-bar" placeholder="Rechercher une recette...">
+    </header>
+    <main>
+        <section id="recipes-container">
+            <!-- Les recettes s'afficheront ici -->
+        </section>
+        <section id="recipe-details" class="hidden">
+            <!-- Les détails d'une recette seront affichés ici -->
+        </section>
+    </main>
+    <div id="recipe-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <h2 id="modal-title"></h2>
+            <img alt="Recette image" id="modal-image" />
+            <p id="modal-servings"></p>
+            <p id="modal-time"></p>
+            <ul id="modal-ingredients"><strong>Ingrédients : </strong></ul>
+            <p id="modal-description"></p>
+        </div>
+    </div>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
