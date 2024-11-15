@@ -1,5 +1,3 @@
-let allRecipes = [];
-
 document.addEventListener("DOMContentLoaded", () => {
     fetch("data/recipes.json")
         .then(response => response.json())
@@ -12,15 +10,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("input", (e) => {
         const query = e.target.value.toLowerCase();
-        const filteredRecipes = allRecipes.filter(recipe => 
+        // Recherche initiale par nom et description
+        let filteredRecipes = allRecipes.filter(recipe => 
             recipe.name.toLowerCase().includes(query) ||
-            recipe.description.toLowerCase().includes(query) ||
-            recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(query))
+            recipe.description.toLowerCase().includes(query)
         );
-        displayRecipes(filteredRecipes);
+
+        // Si aucun résultat, rechercher par ingrédients
+        if (filteredRecipes.length === 0) {
+            filteredRecipes = allRecipes.filter(recipe =>
+                recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(query))
+            );
+        } else {
+            // Si des résultats trouvés initialement, ajouter ceux trouvés par ingrédients
+            const ingredientMatches = allRecipes.filter(recipe =>
+                !filteredRecipes.includes(recipe) && // Exclure déjà trouvés
+                recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(query))
+            );
+            filteredRecipes = filteredRecipes.concat(ingredientMatches);
+        }
+        displayRecipes(filteredRecipes);        
     });
 
     document.getElementById("close-modal").addEventListener("click", closeModal);
+
+    // Fermer la modale en cliquant en dehors du contenu
+    document.getElementById("recipe-modal").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("recipe-modal")) {
+            closeModal();
+        }
+    });
 });
 
 function displayRecipes(recipes) {
@@ -53,25 +72,46 @@ function showRecipeModal(recipe) {
     document.getElementById("modal-servings").textContent = `Portions : ${recipe.servings}`;
     document.getElementById("modal-time").textContent = `Temps de préparation : ${recipe.time} minutes`;
 
+    // Ingrédients
     const ingredientsList = document.getElementById("modal-ingredients");
-    ingredientsList.innerHTML = "<strong>Ingrédients :</strong>"; // Réinitialise la liste
+    ingredientsList.innerHTML = "<strong>Ingrédients :</strong>";
     recipe.ingredients.forEach(ing => {
         const ingredientBadge = document.createElement("span");
         ingredientBadge.classList.add("ingredient-badge");
         ingredientBadge.textContent = `${ing.ingredient} - ${ing.quantity || ''} ${ing.unit || ''}`;
-        //const li = document.createElement("li");
-        //li.textContent = `${ing.ingredient} - ${ing.quantity || ''} ${ing.unit || ''}`;
-        //ingredientsList.appendChild(li);
         ingredientsList.appendChild(ingredientBadge);
     });
 
-    document.getElementById("modal-description").textContent = recipe.description;
+    // Étapes de la recette
+    const stepsList = document.getElementById("modal-description");
+    stepsList.innerHTML = "<strong>Étapes :</strong>";
+    
+    // Séparer les étapes principales et sous-étapes
+    const mainSteps = recipe.description.split('.'); // Split by periods for main steps
+    const ol = document.createElement("ol"); // Create ordered list
+    
+    mainSteps.forEach(step => {
+        if (step.trim() !== "") {
+            const li = document.createElement("li"); // Main step item
+            const subSteps = step.split(','); // Split by commas for sub-steps
+            li.innerHTML = `<strong>${subSteps.shift().trim()}.</strong>`; // Add main step
+            const ul = document.createElement("ul"); // Sub-list for sub-steps
 
-    // Affiche la modale
+            subSteps.forEach(subStep => {
+                const subLi = document.createElement("li");
+                subLi.textContent = subStep.trim();
+                ul.appendChild(subLi); // Append sub-steps to the main step
+            });
+
+            li.appendChild(ul); // Append sub-list to main step
+            ol.appendChild(li);
+        }
+    });
+
+    stepsList.appendChild(ol); // Add list to the modal content
     document.getElementById("recipe-modal").classList.remove("hidden");
-    document.getElementById("recipe-modal").style.display = "flex"; // Applique l'affichage flex
+    document.getElementById("recipe-modal").style.display = "flex";
 }
-
 
 function closeModal() {
     document.getElementById("recipe-modal").classList.add("hidden");

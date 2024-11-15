@@ -131,6 +131,7 @@ header {
     height: auto;
     border-radius: 8px;
     margin-bottom: 15px;
+    object-fit: contain;
 }
 
 .close-button {
@@ -161,4 +162,19 @@ header {
     padding: 5px 10px;
     font-size: 14px;
     color: #333;
+}
+
+#modal-description ol {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+#modal-description ol li {
+    margin-bottom: 10px;
+}
+
+#modal-description ul {
+    padding-left: 20px;
+    margin-top: 5px;
+    list-style-type: disc;
 }
