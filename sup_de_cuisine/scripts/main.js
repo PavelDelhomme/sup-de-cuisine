@@ -1,11 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetch("data/recipes.json")
-        .then(response => response.json())
-        .then(data => {
-            allRecipes = data;
-            displayRecipes(allRecipes);
-        })
-        .catch(error => console.error("Erreur de chargement des données :", error));
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        allRecipes = data;
+        displayRecipes(allRecipes);
+    })
+    .catch(error => console.error("Erreur de chargement des données :", error));
 
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("input", (e) => {
@@ -21,12 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
             filteredRecipes = allRecipes.filter(recipe =>
                 recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(query))
             );
+            console.log("Recherche par ingrédients :", filteredRecipes);
         } else {
             // Si des résultats trouvés initialement, ajouter ceux trouvés par ingrédients
             const ingredientMatches = allRecipes.filter(recipe =>
                 !filteredRecipes.includes(recipe) && // Exclure déjà trouvés
                 recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(query))
             );
+            console.log("Ajout des résultats par ingrédients :", ingredientMatches);
             filteredRecipes = filteredRecipes.concat(ingredientMatches);
         }
         displayRecipes(filteredRecipes);        
@@ -87,8 +94,8 @@ function showRecipeModal(recipe) {
     stepsList.innerHTML = "<strong>Étapes :</strong>";
     
     // Séparer les étapes principales et sous-étapes
-    const mainSteps = recipe.description.split('.'); // Split by periods for main steps
-    const ol = document.createElement("ol"); // Create ordered list
+    const steps = recipe.description.split('.').filter(step => step.trim() !== "");
+    const ol = document.createElement("ol");
     
     mainSteps.forEach(step => {
         if (step.trim() !== "") {

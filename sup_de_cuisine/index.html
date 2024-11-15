@@ -7,18 +7,29 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <header>
-        <h1>Sup de Cuisine</h1>
-        <input type="text" id="search-bar" placeholder="Rechercher une recette...">
+    <header class="banner">
+        <h1 class="banner-title">CHERCHER PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET GÉNÉREUSES</h1>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Recherchez une recette, un ingrédient, ...">
+            <button id="search-button">🔍</button>
+        </div>
     </header>
+
     <main>
+        <section class="filters">
+            <span id="recipe-count">Nombre de recettes affichées : 0</span>
+            <div class="filter-buttons">
+                <button class="filter-btn" id="filter-ingredients">Ingrédients</button>
+                <button class="filter-btn" id="filter-appliances">Appareils</button>
+                <button class="filter-btn" id="filter-tools">Ustensiles</button>
+            </div>
+        </section>
+
         <section id="recipes-container">
             <!-- Les recettes s'afficheront ici -->
         </section>
-        <section id="recipe-details" class="hidden">
-            <!-- Les détails d'une recette seront affichés ici -->
-        </section>
     </main>
+
     <div id="recipe-modal" class="modal hidden">
         <div class="modal-content">
             <span class="close-button" id="close-modal">&times;</span>
