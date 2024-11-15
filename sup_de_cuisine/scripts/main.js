@@ -1,47 +1,32 @@
-document.addEventListener("DOMContentLoaded", () => {
-    fetch("data/recipes.json")
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        allRecipes = data;
-        displayRecipes(allRecipes);
-    })
-    .catch(error => console.error("Erreur de chargement des données :", error));
+const JSON_URL = "https://gist.githubusercontent.com/baiello/0a974b9c1ec73d7d0ed7c8abc361fc8e/raw/e598efa6ef42d34cc8d7e35da5afab795941e53e/recipes.json";
 
+let allRecipes = [];
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Charger les données depuis l'URL
+    fetch(JSON_URL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP : ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            allRecipes = data;
+            displayRecipes(allRecipes);
+        })
+        .catch(error => console.error("Erreur de chargement des données :", error));
+
+    // Gérer la recherche
     const searchBar = document.getElementById("search-bar");
     searchBar.addEventListener("input", (e) => {
         const query = e.target.value.toLowerCase();
-        // Recherche initiale par nom et description
-        let filteredRecipes = allRecipes.filter(recipe => 
-            recipe.name.toLowerCase().includes(query) ||
-            recipe.description.toLowerCase().includes(query)
-        );
-
-        // Si aucun résultat, rechercher par ingrédients
-        if (filteredRecipes.length === 0) {
-            filteredRecipes = allRecipes.filter(recipe =>
-                recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(query))
-            );
-            console.log("Recherche par ingrédients :", filteredRecipes);
-        } else {
-            // Si des résultats trouvés initialement, ajouter ceux trouvés par ingrédients
-            const ingredientMatches = allRecipes.filter(recipe =>
-                !filteredRecipes.includes(recipe) && // Exclure déjà trouvés
-                recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(query))
-            );
-            console.log("Ajout des résultats par ingrédients :", ingredientMatches);
-            filteredRecipes = filteredRecipes.concat(ingredientMatches);
-        }
-        displayRecipes(filteredRecipes);        
+        const filteredRecipes = filterRecipes(query);
+        displayRecipes(filteredRecipes);
     });
 
+    // Gérer la fermeture de la modale
     document.getElementById("close-modal").addEventListener("click", closeModal);
-
-    // Fermer la modale en cliquant en dehors du contenu
     document.getElementById("recipe-modal").addEventListener("click", (e) => {
         if (e.target === document.getElementById("recipe-modal")) {
             closeModal();
@@ -49,18 +34,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Fonction pour filtrer les recettes en fonction de la recherche
+function filterRecipes(query) {
+    return allRecipes.filter(recipe =>
+        recipe.name.toLowerCase().includes(query) ||
+        recipe.description.toLowerCase().includes(query) ||
+        recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(query))
+    );
+}
+
 function displayRecipes(recipes) {
     const container = document.getElementById("recipes-container");
-    container.innerHTML = ""; // Réinitialise l'affichage des recettes
+    container.innerHTML = "";
 
-    recipes.forEach((recipe) => {
+    recipes.forEach(recipe => {
         const recipeCard = document.createElement("div");
         recipeCard.classList.add("recipe-card");
         recipeCard.onclick = () => showRecipeModal(recipe);
 
         const image = document.createElement("img");
-        image.src = `data/images/${recipe.image}`;
+        // Chemin correct vers les images
+        image.src = `http://127.0.0.1:5500/sup_de_cuisine/images/${recipe.image}`;
         image.alt = recipe.name;
+        image.onerror = () => {
+            image.src = "https://via.placeholder.com/200"; // Image par défaut si introuvable
+            console.warn(`Image introuvable : http://127.0.0.1:5500/sup_de_cuisine/images/${recipe.image}`);
+        };
 
         const title = document.createElement("div");
         title.classList.add("recipe-title");
@@ -70,56 +69,49 @@ function displayRecipes(recipes) {
         recipeCard.appendChild(title);
         container.appendChild(recipeCard);
     });
+
+    document.getElementById("recipe-count").textContent = `Nombre de recettes affichées : ${recipes.length}`;
 }
+
 
 function showRecipeModal(recipe) {
     document.getElementById("modal-title").textContent = recipe.name;
-    document.getElementById("modal-image").src = `data/images/${recipe.image}`;
+    // Chemin correct vers l'image de la recette
+    document.getElementById("modal-image").src = `http://127.0.0.1:5500/sup_de_cuisine/images/${recipe.image}`;
     document.getElementById("modal-image").alt = recipe.name;
     document.getElementById("modal-servings").textContent = `Portions : ${recipe.servings}`;
     document.getElementById("modal-time").textContent = `Temps de préparation : ${recipe.time} minutes`;
 
-    // Ingrédients
     const ingredientsList = document.getElementById("modal-ingredients");
     ingredientsList.innerHTML = "<strong>Ingrédients :</strong>";
     recipe.ingredients.forEach(ing => {
         const ingredientBadge = document.createElement("span");
         ingredientBadge.classList.add("ingredient-badge");
-        ingredientBadge.textContent = `${ing.ingredient} - ${ing.quantity || ''} ${ing.unit || ''}`;
+        ingredientBadge.textContent = `${ing.ingredient} - ${ing.quantity || ''} ${ing.unit || ''}`.trim();
         ingredientsList.appendChild(ingredientBadge);
     });
 
-    // Étapes de la recette
     const stepsList = document.getElementById("modal-description");
     stepsList.innerHTML = "<strong>Étapes :</strong>";
-    
-    // Séparer les étapes principales et sous-étapes
+
     const steps = recipe.description.split('.').filter(step => step.trim() !== "");
     const ol = document.createElement("ol");
-    
-    mainSteps.forEach(step => {
-        if (step.trim() !== "") {
-            const li = document.createElement("li"); // Main step item
-            const subSteps = step.split(','); // Split by commas for sub-steps
-            li.innerHTML = `<strong>${subSteps.shift().trim()}.</strong>`; // Add main step
-            const ul = document.createElement("ul"); // Sub-list for sub-steps
 
-            subSteps.forEach(subStep => {
-                const subLi = document.createElement("li");
-                subLi.textContent = subStep.trim();
-                ul.appendChild(subLi); // Append sub-steps to the main step
-            });
-
-            li.appendChild(ul); // Append sub-list to main step
-            ol.appendChild(li);
-        }
+    steps.forEach(step => {
+        const li = document.createElement("li");
+        li.textContent = step.trim();
+        ol.appendChild(li);
     });
 
-    stepsList.appendChild(ol); // Add list to the modal content
+    stepsList.appendChild(ol);
     document.getElementById("recipe-modal").classList.remove("hidden");
     document.getElementById("recipe-modal").style.display = "flex";
 }
 
+
+
+// Fonction pour fermer la modale
 function closeModal() {
     document.getElementById("recipe-modal").classList.add("hidden");
+    document.getElementById("recipe-modal").style.display = "none";
 }

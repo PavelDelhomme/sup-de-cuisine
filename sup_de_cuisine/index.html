@@ -11,18 +11,12 @@
         <h1 class="banner-title">CHERCHER PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET GÉNÉREUSES</h1>
         <div class="search-container">
             <input type="text" id="search-bar" placeholder="Recherchez une recette, un ingrédient, ...">
-            <button id="search-button">🔍</button>
         </div>
     </header>
 
     <main>
         <section class="filters">
             <span id="recipe-count">Nombre de recettes affichées : 0</span>
-            <div class="filter-buttons">
-                <button class="filter-btn" id="filter-ingredients">Ingrédients</button>
-                <button class="filter-btn" id="filter-appliances">Appareils</button>
-                <button class="filter-btn" id="filter-tools">Ustensiles</button>
-            </div>
         </section>
 
         <section id="recipes-container">
@@ -37,10 +31,11 @@
             <img alt="Recette image" id="modal-image" />
             <p id="modal-servings"></p>
             <p id="modal-time"></p>
-            <ul id="modal-ingredients"><strong>Ingrédients : </strong></ul>
-            <p id="modal-description"></p>
+            <div id="modal-ingredients"></div>
+            <div id="modal-description"></div>
         </div>
     </div>
+
     <script src="scripts/main.js"></script>
 </body>
 </html>

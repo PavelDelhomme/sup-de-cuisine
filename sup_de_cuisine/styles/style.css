@@ -1,290 +1,83 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: #f8f8f8;
+    margin: 0;
     padding: 20px;
 }
 
 header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#search-bar {
-    padding: 10px;
-    width: 300px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-#recipes-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.recipe-card {
-    width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.recipe-card img {
-    width: 100%;
-    height: auto;
-}
-
-.recipe-title {
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-}
-#search-bar {
-    padding: 10px;
-    width: 300px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-#recipes-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.recipe-card {
-    width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
-
-.recipe-card img {
-    width: 100%;
-    height: auto;
-}
-
-.recipe-title {
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-/* Détails de la recette */
-#recipe-details {
-    width: 80%;
+    background-color: #ff7043;
+    color: white;
     padding: 20px;
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-#recipe-details img {
+#recipes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.recipe-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.recipe-card:hover {
+    transform: scale(1.05);
+}
+
+.recipe-card img {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.recipe-card .recipe-title {
+    font-size: 18px;
+    margin: 10px 0;
 }
 
 .modal {
-    display: none; /* Par défaut masqué */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center; /* Centrer horizontalement */
-    align-items: center; /* Centrer verticalement */
-    z-index: 1000;
-}
-
-.modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    max-height: 80vh;
-    overflow-y: auto;
-    text-align: center;
-    position: relative;
-}
-
-.modal-content img {
-    max-width: 200px;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    object-fit: contain;
-}
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none;
-}
-
-#modal-ingredients {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-    justify-content: center;
-}
-
-
-.ingredient-badge {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 5px 10px;
-    font-size: 14px;
-    color: #333;
-}
-
-#modal-description ol {
-    padding-left: 20px;
-    margin-top: 10px;
-}
-
-#modal-description ol li {
-    margin-bottom: 10px;
-}
-
-#modal-description ul {
-    padding-left: 20px;
-    margin-top: 5px;
-    list-style-type: disc;
-}
-
-/* Bannière */
-.banner {
-    background-image: url("data/images/Recette20.jpg");
-    background-size: cover;
-    background-position: center;
-    text-align: center;
-    padding: 60px 20px;
-    color: white;
-}
-
-.banner-title {
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-}
-
-.search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#search-bar {
-    padding: 10px;
-    width: 300px;
-    border-radius: 5px 0 0 5px;
-    border: 1px solid #ccc;
-}
-
-#search-button {
-    padding: 10px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-}
-
-/* Filtres */
-.filters {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px auto;
-    width: 80%;
-}
-
-#recipe-count {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.filter-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.filter-btn {
-    padding: 8px 16px;
-    border: 1px solid #007BFF;
-    background-color: white;
-    color: #007BFF;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.filter-btn:hover {
-    background-color: #007BFF;
-    color: white;
-}
-
-/* Cartes de recettes */
-.recipe-card {
-    width: 200px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-}
-
-.recipe-card img {
-    width: 100%;
-    height: auto;
-}
-
-.recipe-title {
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-#recipe-modal {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.8);
+    display: none;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
 }
-#recipe-modal.hidden {
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    text-align: left;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.hidden {
     display: none;
 }
