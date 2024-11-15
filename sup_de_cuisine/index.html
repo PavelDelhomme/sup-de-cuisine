@@ -10,8 +10,11 @@
     <header class="banner">
         <h1 class="banner-title">CHERCHER PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET GÉNÉREUSES</h1>
         <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Recherchez une recette, un ingrédient, ...">
-        </div>
+            <input type="text" id="search-bar" class="search-input" placeholder="Recherchez une recette, un ingrédient, ...">
+            <button class="search-btn">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </div>        
     </header>
 
     <main>
@@ -22,6 +25,8 @@
         <section id="recipes-container">
             <!-- Les recettes s'afficheront ici -->
         </section>
+        <section class="pagination"></section>
+
     </main>
 
     <div id="recipe-modal" class="modal hidden">

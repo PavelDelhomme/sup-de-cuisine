@@ -19,14 +19,15 @@ header {
     margin-top: 20px;
 }
 
+/* Styles pour les cartes de recette */
 .recipe-card {
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 8px;
     margin: 10px;
     padding: 10px;
-    width: 200px;
-    text-align: center;
+    width: 300px; /* Plus large pour inclure toutes les informations */
+    text-align: left; /* Aligne le texte à gauche */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.2s;
@@ -44,8 +45,49 @@ header {
 }
 
 .recipe-card .recipe-title {
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
     margin: 10px 0;
+}
+
+.recipe-card .recipe-description {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Affiche seulement 1 ligne */
+    -webkit-box-orient: vertical;
+}
+
+.recipe-card .recipe-ingredients-row {
+    display: flex;
+    justify-content: space-between;
+}
+.recipe-card .recipe-ingredients strong {
+    font-weight: bold;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    background-color: #ff7043;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pagination button:hover {
+    background-color: #ff5722;
 }
 
 .modal {
@@ -69,6 +111,37 @@ header {
     text-align: left;
     position: relative;
 }
+.modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+#modal-image {
+    max-width: 100%;
+    max-height: 300px; /* Limite la hauteur pour éviter les débordements */
+    display: block;
+    margin: 10px auto; /* Centrer l'image dans le modal */
+    border-radius: 8px;
+    object-fit: cover; /* Garde l'aspect ratio de l'image */
+}
+
+
+#modal-ingredients, #modal-description {
+    margin-top: 15px;
+}
+
+
+#modal-ingredients strong, #modal-description strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
 
 .close-button {
     position: absolute;
@@ -80,4 +153,39 @@ header {
 
 .hidden {
     display: none;
+}
+
+.search-container {
+    background: #fff;
+    height: 50px;
+    border-radius: 25px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+
+.search-container:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.search-container .search-input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.search-container .search-btn {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.search-container .fa {
+    color: #ff7043;
+    font-size: 24px;
 }
