@@ -7,142 +7,45 @@ body {
     padding: 20px;
 }
 
-header {
-    background-color: #ff7043;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
 
-h1 {
-    margin: 0;
-    font-weight: 700;
-}
-
-.search-container {
-    display: flex;
-    align-items: center;
-    background: white;
-    padding: 10px;
-    border-radius: 25px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-.search-container:hover {
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.search-input {
-    flex: 1;
-    border: none;
-    font-size: 16px;
-    margin-right: 10px;
-    outline: none;
-}
-
-.search-btn {
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-.filters-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 20px 0;
-}
-
-.filters {
-    display: flex;
-    gap: 20px;
-}
-
-.filter-input {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    outline: none;
-    width: 150px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.recipe-count {
-    font-weight: bold;
-}
-
-/* Dropdown styles */
-.dropdown-list {
-    position: absolute;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    max-height: 150px;
-    overflow-y: auto;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    width: 150px;
-}
-
-.dropdown-list span {
-    padding: 8px;
-    cursor: pointer;
-    display: block;
-    border-bottom: 1px solid #ddd;
-}
-
-.dropdown-list span:hover {
-    background: #ff7043;
-    color: white;
-}
-
-/* Recipes and Pagination */
-#recipes-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
+/* Styles pour les cartes recettes */
 .recipe-card {
-    background: white;
+    background: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    padding: 15px;
-    transition: transform 0.2s;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.recipe-card:hover {
-    transform: scale(1.05);
+.recipe-card h2 {
+    font-size: 1.5em;
+    margin-bottom: 8px;
 }
 
-.recipe-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 4px;
+.recipe-card p {
+    font-size: 0.9em;
+    color: #555;
 }
 
+
+/* Styles pour la pagination */
 .pagination {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    text-align: center;
+    margin-top: 16px;
 }
 
 .pagination button {
-    padding: 10px;
-    border: none;
-    background: #ff7043;
-    color: white;
-    border-radius: 5px;
+    background: #fff;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    padding: 8px 12px;
     cursor: pointer;
-    transition: background 0.3s;
+    border-radius: 4px;
 }
 
-.pagination button:hover {
-    background: #ff5722;
+.pagination button.active {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
 }

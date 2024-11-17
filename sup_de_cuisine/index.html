@@ -19,46 +19,9 @@
     </header>
 
     <main>
-        <!-- Filtres au-dessus des résultats -->
-        <section class="filters-container">
-            <div class="filters">
-                <div>
-                    <label for="ingredient-search">Ingrédients :</label>
-                    <input type="text" id="ingredient-search" class="filter-input" placeholder="Rechercher un ingrédient...">
-                    <div class="dropdown-list" id="ingredient-list"></div>
-                </div>
-                <div>
-                    <label for="appliance-search">Appareils :</label>
-                    <input type="text" id="appliance-search" class="filter-input" placeholder="Rechercher un appareil...">
-                    <div class="dropdown-list" id="appliance-list"></div>
-                </div>
-                <div>
-                    <label for="utensil-search">Ustensiles :</label>
-                    <input type="text" id="utensil-search" class="filter-input" placeholder="Rechercher un ustensile...">
-                    <div class="dropdown-list" id="utensil-list"></div>
-                </div>                
-            </div>
-            <span id="recipe-count" class="recipe-count">Nombre de recettes affichées : 0</span>
-        </section>
-
-        <section id="recipes-container">
-            <!-- Les recettes s'afficheront ici -->
-        </section>
-        <section class="pagination"></section>
+        
     </main>
     
-    <div id="recipe-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-button" id="close-modal">&times;</span>
-            <h2 id="modal-title"></h2>
-            <img alt="Recette image" id="modal-image" />
-            <p id="modal-servings"></p>
-            <p id="modal-time"></p>
-            <div id="modal-ingredients"></div>
-            <div id="modal-description"></div>
-        </div>
-    </div>
-
     <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
