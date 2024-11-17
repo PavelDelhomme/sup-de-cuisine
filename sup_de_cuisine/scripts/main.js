@@ -33,27 +33,48 @@ function displayRecipes() {
         return;
     }
 
+    const gridContainer = document.createElement("div");
+    gridContainer.className = "grid-container";
+
     recipesToDisplay.forEach(recipe => {
         const recipeCard = document.createElement("div");
         recipeCard.className = "recipe-card";
 
+        // Formatage des ingrédients en 2 colonnes
+        const formattedIngredients = recipe.ingredients.map(ing => {
+            const quantity = `${ing.quantity || ""} ${ing.unit || ""}`.trim();
+            return `
+                <div class="ingredient">
+                    <strong>${ing.ingredient}</strong>
+                    <span>${quantity}</span>
+                </div>
+            `;
+        });
+
         recipeCard.innerHTML = `
-            <h2>${recipe.name}</h2>
-            <p><strong>Ingrédients:</strong> ${recipe.ingredients.map(ing => {
-                let text = `${ing.ingredient}`;
-                if (ing.quantity) text += `: ${ing.quantity}`;
-                if (ing.unit) text += ` ${ing.unit}`;
-                return text;
-            }).join(", ")}</p>
-            <p><strong>Appareil:</strong> ${recipe.appliance}</p>
-            <p><strong>Ustensiles:</strong> ${recipe.ustensils.join(", ")}</p>
+            <img src="data/images/${recipe.image}" alt="${recipe.name}" class="recipe-image">
+            <h2 class="recipe-title">${recipe.name}</h2>
+            <p class="recipe-description">${truncateText(recipe.description, 120)}</p>
+            <div class="ingredients-grid">
+                ${formattedIngredients.join("")}
+            </div>
         `;
 
-        main.appendChild(recipeCard);
+        gridContainer.appendChild(recipeCard);
     });
 
+    main.appendChild(gridContainer);
     setupPagination();
 }
+
+// Fonction utilitaire pour tronquer le texte
+function truncateText(text, maxLength) {
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+}
+
+
+fetchRecipes();
+
 
 
 // Fonction de recherche
