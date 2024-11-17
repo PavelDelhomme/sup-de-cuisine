@@ -11,12 +11,39 @@ async function fetchRecipes() {
         if (!response.ok) throw new Error("Erreur lors du chargement des recettes.");
         allRecipes = await response.json();
         filteredRecipes = [...allRecipes]; // Initialisation des recettes filtrées
+        document.getElementById("recipe-count").textContent = `Total : ${allRecipes.length} recettes`;
         displayRecipes();
     } catch (error) {
         console.error("Erreur :", error);
     }
 }
 
+// Fonction de filtrage dynamique
+function filterRecipes() {
+    const ingredientValue = document.getElementById("ingredient-filter").value.toLowerCase();
+    const applianceValue = document.getElementById("appliance-filter").value.toLowerCase();
+    const utensilValue = document.getElementById("utensil-filter").value.toLowerCase();
+
+    filteredRecipes = allRecipes.filter(recipe => {
+        const matchesIngredients = recipe.ingredients.some(ing =>
+            ing.ingredient.toLowerCase().includes(ingredientValue)
+        );
+        const matchesAppliance = recipe.appliance.toLowerCase().includes(applianceValue);
+        const matchesUtensils = recipe.ustensils.some(ust =>
+            ust.toLowerCase().includes(utensilValue)
+        );
+
+        return matchesIngredients && matchesAppliance && matchesUtensils;
+    });
+
+    currentPage = 1; // Réinitialiser la pagination
+    displayRecipes();
+}
+
+// Événements pour les inputs de filtre
+document.getElementById("ingredient-filter").addEventListener("input", filterRecipes);
+document.getElementById("appliance-filter").addEventListener("input", filterRecipes);
+document.getElementById("utensil-filter").addEventListener("input", filterRecipes);
 
 
 // Fonction pour afficher les recettes
