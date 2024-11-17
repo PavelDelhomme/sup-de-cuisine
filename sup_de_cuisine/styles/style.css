@@ -10,11 +10,43 @@ body {
 /* Styles pour la grille */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
     gap: 20px;
     margin: 20px 0;
 }
 
+/* Titre de section (Recette, Ingrédients) */
+.section-title {
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase; /* Lettres capitales */
+    color: #777; /* Couleur grise */
+    margin: 16px 0 8px; /* Espacement avec les éléments voisins */
+    text-align: left; /* Alignement à gauche */
+    width: 100%;
+}
+
+/* Pour les écrans plus petits */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
+    }
+
+    .recipe-image {
+        height: 150px; /* Réduction de la hauteur pour les écrans plus petits */
+    }
+}
+
+/* Pour les écrans très petits */
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 1 colonne */
+    }
+
+    .recipe-image {
+        height: 150px;
+    }
+}
 
 /* Carte recette */
 .recipe-card {
@@ -29,16 +61,14 @@ body {
     text-align: center;
 }
 
-
 /* Image de la recette */
 .recipe-image {
     width: 100%;
-    height: 200px; /* Hauteur fixe pour toutes les images */
+    height: 200px; /* Hauteur fixe pour uniformiser toutes les images */
     border-radius: 8px 8px 0 0;
     margin-bottom: 16px;
-    object-fit: cover; /* Pour que l'image remplisse le conteneur sans déformer */
+    object-fit: cover; /* Ajuste l'image sans déformation */
 }
-
 
 
 /* Titre de la recette */
@@ -61,30 +91,29 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 /* Grille des ingrédients */
 .ingredients-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
     gap: 8px;
     width: 100%;
     text-align: left;
+    margin-top: 10px;
 }
-
 
 /* Style des ingrédients */
 .ingredient {
     font-size: 0.9em;
     color: #555;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Affiche le nom de l'ingrédient au-dessus de la quantité */
     align-items: flex-start;
     margin-bottom: 8px;
 }
 
 .ingredient strong {
     font-weight: bold;
-    margin-bottom: 4px;
+    margin-bottom: 4px; /* Espace entre le nom et la quantité */
 }
 
 .ingredient span {

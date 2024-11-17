@@ -49,16 +49,23 @@ function displayRecipes() {
                     <span>${quantity}</span>
                 </div>
             `;
-        });
+        });        
 
         recipeCard.innerHTML = `
             <img src="data/images/${recipe.image}" alt="${recipe.name}" class="recipe-image">
             <h2 class="recipe-title">${recipe.name}</h2>
+
+            <!-- Section Recette -->
+            <p class="section-title">Recette</p>
             <p class="recipe-description">${truncateText(recipe.description, 120)}</p>
+
+            <!-- Section Ingrédients -->
+            <p class="section-title">Ingrédients</p>
             <div class="ingredients-grid">
                 ${formattedIngredients.join("")}
             </div>
         `;
+    
 
         gridContainer.appendChild(recipeCard);
     });
