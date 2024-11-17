@@ -158,4 +158,61 @@ function setupPagination() {
     main.appendChild(pagination);
 }
 
+function populateDropdowns() {
+    const ingredientSelect = document.getElementById("ingredient-select");
+    const applianceSelect = document.getElementById("appliance-select");
+    const utensilSelect = document.getElementById("utensil-select");
+
+    // Obtenir les valeurs uniques
+    const allIngredients = [...new Set(allRecipes.flatMap(recipe => recipe.ingredients.map(ing => ing.ingredient)))];
+    const allAppliances = [...new Set(allRecipes.map(recipe => recipe.appliance))];
+    const allUtensils = [...new Set(allRecipes.flatMap(recipe => recipe.ustensils))];
+
+    // Remplir les dropdowns
+    allIngredients.forEach(ingredient => {
+        const option = document.createElement("option");
+        option.value = ingredient;
+        option.textContent = ingredient;
+        ingredientSelect.appendChild(option);
+    });
+
+    allAppliances.forEach(appliance => {
+        const option = document.createElement("option");
+        option.value = appliance;
+        option.textContent = appliance;
+        applianceSelect.appendChild(option);
+    });
+
+    allUtensils.forEach(utensil => {
+        const option = document.createElement("option");
+        option.value = utensil;
+        option.textContent = utensil;
+        utensilSelect.appendChild(option);
+    });
+}
+
+function applyFilters() {
+    const selectedIngredients = Array.from(document.getElementById("ingredient-select").selectedOptions).map(opt => opt.value.toLowerCase());
+    const selectedAppliances = Array.from(document.getElementById("appliance-select").selectedOptions).map(opt => opt.value.toLowerCase());
+    const selectedUtensils = Array.from(document.getElementById("utensil-select").selectedOptions).map(opt => opt.value.toLowerCase());
+
+    filteredRecipes = allRecipes.filter(recipe => {
+        const matchesIngredients = selectedIngredients.length === 0 || selectedIngredients.every(ing =>
+            recipe.ingredients.some(ri => ri.ingredient.toLowerCase().includes(ing))
+        );
+        const matchesAppliance = selectedAppliances.length === 0 || selectedAppliances.includes(recipe.appliance.toLowerCase());
+        const matchesUtensils = selectedUtensils.length === 0 || selectedUtensils.every(ut =>
+            recipe.ustensils.some(ru => ru.toLowerCase().includes(ut))
+        );
+
+        return matchesIngredients && matchesAppliance && matchesUtensils;
+    });
+
+    currentPage = 1;
+    displayRecipes();
+}
+
+
+
 fetchRecipes();
+populateDropdowns();

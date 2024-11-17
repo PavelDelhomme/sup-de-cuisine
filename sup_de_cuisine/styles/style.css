@@ -164,6 +164,7 @@ body {
     color: #333;
 }
 
+
 /* Dropdowns de filtre */
 .filter-right {
     display: flex;
@@ -175,6 +176,32 @@ body {
     width: 200px;
 }
 
+
+.dropdown-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    outline: none;
+    background: #fff;
+    overflow: hidden;
+    height: auto;
+}
+
+/* Tags affichés pour les sélections */
+.dropdown-select[multiple] option {
+    background: #f8f8f8;
+    padding: 8px 10px;
+    margin: 2px 0;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.dropdown-select[multiple] option:checked {
+    background: #007bff;
+    color: #fff;
+}
 .dropdown-input {
     width: 100%;
     padding: 8px 12px;
@@ -187,7 +214,6 @@ body {
 .dropdown-input::placeholder {
     color: #aaa;
 }
-
 
 /* Bannière avec image de fond */
 .banner {
