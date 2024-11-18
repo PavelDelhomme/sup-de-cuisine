@@ -23,20 +23,29 @@
         </div>
         <div class="filter-right">
             <div class="dropdown">
-                <label for="ingredient-select">Ingrédients</label>
-                <select id="ingredient-select" class="dropdown-select" multiple></select>
+                <label for="ingredient-search">Ingrédients</label>
+                <div class="dropdown-container">
+                    <input type="text" id="ingredient-search" class="dropdown-input" placeholder="Recherchez un ingrédient...">
+                    <ul id="ingredient-options" class="dropdown-options"></ul>
+                </div>
             </div>
             <div class="dropdown">
-                <label for="appliance-select">Appareils</label>
-                <select id="appliance-select" class="dropdown-select" multiple></select>
+                <label for="appliance-search">Appareils</label>
+                <div class="dropdown-container">
+                    <input type="text" id="appliance-search" class="dropdown-input" placeholder="Recherchez un appareil...">
+                    <ul id="appliance-options" class="dropdown-options"></ul>
+                </div>
             </div>
             <div class="dropdown">
-                <label for="utensil-select">Ustensiles</label>
-                <select id="utensil-select" class="dropdown-select" multiple></select>
+                <label for="utensil-search">Ustensiles</label>
+                <div class="dropdown-container">
+                    <input type="text" id="utensil-search" class="dropdown-input" placeholder="Recherchez un ustensile...">
+                    <ul id="utensil-options" class="dropdown-options"></ul>
+                </div>
             </div>
         </div>
     </section>
-      
+    <div id="selected-filters" class="selected-filters"></div>    
     <main>
         
     </main>

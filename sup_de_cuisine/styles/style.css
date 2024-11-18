@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 /* Global styles */
 body {
     font-family: 'Roboto', Arial, sans-serif;
@@ -166,6 +166,11 @@ body {
 
 
 /* Dropdowns de filtre */
+.dropdown-container {
+    position: relative;
+}
+
+
 .filter-right {
     display: flex;
     gap: 15px;
@@ -190,25 +195,55 @@ body {
 }
 
 /* Tags affichés pour les sélections */
-.dropdown-select[multiple] option {
-    background: #f8f8f8;
-    padding: 8px 10px;
-    margin: 2px 0;
-    cursor: pointer;
-    font-size: 0.9em;
+
+.dropdown-select[multiple] {
+    height: auto; /* Permet l'ajustement automatique */
+    max-height: 150px; /* Limite la hauteur */
+    overflow-y: auto; /* Ajoute un défilement si nécessaire */
 }
 
+/* Options sélectionnées */
 .dropdown-select[multiple] option:checked {
     background: #007bff;
     color: #fff;
 }
+
+
 .dropdown-input {
     width: 100%;
-    padding: 8px 12px;
+    padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 0.9em;
     outline: none;
+}
+
+.dropdown-options {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    display: none;
+}
+
+.dropdown-options li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown-options li:hover {
+    background-color: #f0f0f0;
+}
+/* Affiche les options lors de la saisie */
+.dropdown-options.show {
+    display: block;
 }
 
 .dropdown-input::placeholder {
@@ -229,6 +264,7 @@ body {
     font-size: 2.5em;
     font-weight: bold;
     margin-bottom: 20px;
+    color: #333;
 }
 
 .search-container {
@@ -263,4 +299,35 @@ body {
 
 .search-btn i {
     pointer-events: none;
+}
+
+.selected-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ffd700;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.badge span {
+    margin-right: 8px;
+}
+
+.badge .remove {
+    font-size: 1em;
+    color: #000;
+    cursor: pointer;
+    margin-left: 5px;
+    font-weight: bold;
 }

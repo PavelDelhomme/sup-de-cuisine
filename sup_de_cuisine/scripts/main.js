@@ -11,7 +11,14 @@ async function fetchRecipes() {
         if (!response.ok) throw new Error("Erreur lors du chargement des recettes.");
         allRecipes = await response.json();
         filteredRecipes = [...allRecipes]; // Initialisation des recettes filtrées
+
+        // Met à jour le compteur de recettes
         document.getElementById("recipe-count").textContent = `Total : ${allRecipes.length} recettes`;
+
+        // Remplit les dropdowns dynamiquement
+        populateDropdowns();
+
+        // Affiche les recettes
         displayRecipes();
     } catch (error) {
         console.error("Erreur :", error);
@@ -40,10 +47,74 @@ function filterRecipes() {
     displayRecipes();
 }
 
+
+function updateSelectedFilters() {
+    const selectedFilters = document.getElementById("selected-filters");
+    selectedFilters.innerHTML = ""; // Réinitialise les badges
+
+    const selectedIngredients = Array.from(document.getElementById("ingredient-select").selectedOptions).map(opt => opt.value);
+    const selectedAppliances = Array.from(document.getElementById("appliance-select").selectedOptions).map(opt => opt.value);
+    const selectedUtensils = Array.from(document.getElementById("utensil-select").selectedOptions).map(opt => opt.value);
+
+    // Crée les badges pour les ingrédients
+    selectedIngredients.forEach(ingredient => createBadge(ingredient, "ingredient"));
+
+    // Crée les badges pour les appareils
+    selectedAppliances.forEach(appliance => createBadge(appliance, "appliance"));
+
+    // Crée les badges pour les ustensiles
+    selectedUtensils.forEach(utensil => createBadge(utensil, "utensil"));
+}
+
+// Crée un badge
+function createBadge(label, type) {
+    const selectedFilters = document.getElementById("selected-filters");
+
+    const badge = document.createElement("div");
+    badge.className = "badge";
+
+    badge.innerHTML = `
+        <span>${label}</span>
+        <span class="remove" data-type="${type}" data-value="${label}">×</span>
+    `;
+
+    selectedFilters.appendChild(badge);
+
+    // Ajoute un événement pour supprimer le filtre
+    badge.querySelector(".remove").addEventListener("click", (e) => {
+        removeFilter(type, label);
+    });
+}
+
+// Supprime un filtre
+function removeFilter(type, value) {
+    const selectElement = document.getElementById(`${type}-select`);
+    const options = Array.from(selectElement.options);
+
+    options.forEach(option => {
+        if (option.value === value) {
+            option.selected = false;
+        }
+    });
+
+    applyFilters(); // Applique les filtres après suppression
+    updateSelectedFilters(); // Met à jour les badges
+}
+
+
 // Événements pour les inputs de filtre
-document.getElementById("ingredient-filter").addEventListener("input", filterRecipes);
-document.getElementById("appliance-filter").addEventListener("input", filterRecipes);
-document.getElementById("utensil-filter").addEventListener("input", filterRecipes);
+document.addEventListener("DOMContentLoaded", () => {
+    const ingredientSelect = document.getElementById("ingredient-select");
+    const applianceSelect = document.getElementById("appliance-select");
+    const utensilSelect = document.getElementById("utensil-select");
+
+    if (ingredientSelect) ingredientSelect.addEventListener("change", applyFilters);
+    if (applianceSelect) applianceSelect.addEventListener("change", applyFilters);
+    if (utensilSelect) utensilSelect.addEventListener("change", applyFilters);
+
+    fetchRecipes();
+});
+
 
 
 // Fonction pour afficher les recettes
@@ -64,10 +135,10 @@ function displayRecipes() {
     gridContainer.className = "grid-container";
 
     recipesToDisplay.forEach(recipe => {
+        console.log("Image Path:", `data/images/${recipe.image}`);
         const recipeCard = document.createElement("div");
         recipeCard.className = "recipe-card";
-
-        // Formatage des ingrédients en 2 colonnes
+    
         const formattedIngredients = recipe.ingredients.map(ing => {
             const quantity = `${ing.quantity || ""} ${ing.unit || ""}`.trim();
             return `
@@ -76,26 +147,20 @@ function displayRecipes() {
                     <span>${quantity}</span>
                 </div>
             `;
-        });        
-
+        });
+    
         recipeCard.innerHTML = `
             <img src="data/images/${recipe.image}" alt="${recipe.name}" class="recipe-image">
             <h2 class="recipe-title">${recipe.name}</h2>
-
-            <!-- Section Recette -->
             <p class="section-title">Recette</p>
             <p class="recipe-description">${truncateText(recipe.description, 120)}</p>
-
-            <!-- Section Ingrédients -->
             <p class="section-title">Ingrédients</p>
-            <div class="ingredients-grid">
-                ${formattedIngredients.join("")}
-            </div>
+            <div class="ingredients-grid">${formattedIngredients.join("")}</div>
         `;
     
-
         gridContainer.appendChild(recipeCard);
     });
+    
 
     main.appendChild(gridContainer);
     setupPagination();
@@ -105,9 +170,6 @@ function displayRecipes() {
 function truncateText(text, maxLength) {
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 }
-
-
-fetchRecipes();
 
 
 
@@ -159,16 +221,24 @@ function setupPagination() {
 }
 
 function populateDropdowns() {
+    console.log("All Recipes:", allRecipes); // Vérifie si les recettes sont bien récupérées
+
     const ingredientSelect = document.getElementById("ingredient-select");
     const applianceSelect = document.getElementById("appliance-select");
     const utensilSelect = document.getElementById("utensil-select");
 
-    // Obtenir les valeurs uniques
+    ingredientSelect.innerHTML = "";
+    applianceSelect.innerHTML = "";
+    utensilSelect.innerHTML = "";
+
     const allIngredients = [...new Set(allRecipes.flatMap(recipe => recipe.ingredients.map(ing => ing.ingredient)))];
     const allAppliances = [...new Set(allRecipes.map(recipe => recipe.appliance))];
     const allUtensils = [...new Set(allRecipes.flatMap(recipe => recipe.ustensils))];
 
-    // Remplir les dropdowns
+    console.log("Ingredients:", allIngredients);
+    console.log("Appliances:", allAppliances);
+    console.log("Utensils:", allUtensils);
+
     allIngredients.forEach(ingredient => {
         const option = document.createElement("option");
         option.value = ingredient;
@@ -210,9 +280,6 @@ function applyFilters() {
 
     currentPage = 1;
     displayRecipes();
+    updateSelectedFilters(); // Met à jour les badges après application des filtres
 }
 
-
-
-fetchRecipes();
-populateDropdowns();
