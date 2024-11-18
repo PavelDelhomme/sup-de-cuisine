@@ -27,13 +27,36 @@ body {
 }
 
 /* Pour les écrans plus petits */
-@media (max-width: 768px) {
+@media (max-width: 768px) or (max-width: 812px) {
     .grid-container {
         grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
     }
 
     .recipe-image {
         height: 150px; /* Réduction de la hauteur pour les écrans plus petits */
+    }
+
+    /* Les filtres deviennent une colonne sur mobile */
+    .filter-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px; /* Ajoute un espace entre les éléments */
+    }
+
+    .filter-left {
+        font-size: 1em;
+        margin-bottom: 10px; /* Espacement entre le compteur et les filtres */
+    }
+
+    .filter-right {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Ajoute un espace entre les dropdowns */
+        width: 100%; /* Prend toute la largeur disponible */
+    }
+
+    .dropdown {
+        width: 100%; /* Les dropdowns prennent toute la largeur */
     }
 }
 
@@ -45,6 +68,28 @@ body {
 
     .recipe-image {
         height: 150px;
+    }
+    /* Les filtres deviennent une colonne sur mobile */
+    .filter-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px; /* Ajoute un espace entre les éléments */
+    }
+
+    .filter-left {
+        font-size: 1em;
+        margin-bottom: 10px; /* Espacement entre le compteur et les filtres */
+    }
+
+    .filter-right {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Ajoute un espace entre les dropdowns */
+        width: 100%; /* Prend toute la largeur disponible */
+    }
+
+    .dropdown {
+        width: 100%; /* Les dropdowns prennent toute la largeur */
     }
 }
 
