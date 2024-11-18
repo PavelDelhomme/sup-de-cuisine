@@ -252,13 +252,14 @@ body {
 
 /* Bannière avec image de fond */
 .banner {
-    background-image: url('data/images/Recette01.jpg'); /* Chemin de votre image */
+    background-image: url('../data/images/Recette01.jpg'); /* Remonte d'un dossier */
     background-size: cover;
     background-position: center;
-    color: #fff; /* Texte en blanc */
+    color: #fff;
     text-align: center;
     padding: 50px 20px;
 }
+
 
 .banner-title {
     font-size: 2.5em;
