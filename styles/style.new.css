@@ -1,0 +1,525 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/* Global styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 20px;
+}
+
+
+
+/* Bannière avec image de fond */
+.banner {
+    background-image: url('../data/images/Recette01.jpg'); /* Remonte d'un dossier */
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+
+.banner-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+
+.search-container {
+    margin-top: 10px;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; /* Centrer la barre de recherche */
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 25px;
+    border: none;
+    font-size: 1em;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+    font-size: 1.2em;
+}
+
+.search-btn i {
+    pointer-events: none;
+}
+
+
+/* Styles pour la grille */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    gap: 20px;
+    margin: 20px 0;
+}
+
+@media (max-width: 768px) or (max-width: 812px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
+    }
+}
+
+/* Carte recette */
+.recipe-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Image de la recette */
+.recipe-image {
+    width: 100%;
+    height: 200px; /* Hauteur fixe pour uniformiser toutes les images */
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 16px;
+    object-fit: cover; /* Ajuste l'image sans déformation */
+}
+
+
+
+/* Les filtres deviennent une colonne sur mobile *//* Filtres pour grands écrans */
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.filter-left {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.filter-right {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+    
+
+
+
+
+/* Adaptations pour écrans moyens */
+@media (max-width: 992px) {
+    .filter-header {
+        flex-wrap: wrap;
+    }
+
+    .filter-left {
+        flex-basis: 100%;
+        text-align: left;
+    }
+
+    .filter-right {
+        flex-basis: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+}
+
+
+
+
+
+/* Adaptations pour écrans petits */
+@media (max-width: 768px) {
+    .filter-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-right {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+}
+
+/* Adaptations pour écrans très petits */
+@media (max-width: 576px) {
+    .filter-header {
+        gap: 10px;
+    }
+
+    .filter-left {
+        font-size: 0.9em;
+    }
+
+    .filter-right {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+
+/* Titre de section (Recette, Ingrédients) */
+.section-title {
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase; /* Lettres capitales */
+    color: #777; /* Couleur grise */
+    margin: 16px 0 8px; /* Espacement avec les éléments voisins */
+    text-align: left; /* Alignement à gauche */
+    width: 100%;
+}
+
+/* Pour les écrans plus petits */
+@media (max-width: 768px) or (max-width: 812px) {
+    .recipe-image {
+        height: 150px; /* Réduction de la hauteur pour les écrans plus petits */
+    }
+
+.dropdown {
+    width: 200px;
+}
+
+/* Filtres pour écrans moyens */
+@media (max-width: 992px) {
+    .filter-header {
+        flex-wrap: wrap;
+    }
+
+    .filter-left {
+        font-size: 1em;
+        flex-basis: 100%;
+        margin-bottom: 10px;
+    }
+
+    .filter-right {
+        flex-basis: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .dropdown {
+        flex-grow: 1;
+        width: 100%;
+    }
+}
+
+/* Filtres pour petits écrans */
+@media (max-width: 768px) {
+    .filter-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-left {
+        font-size: 1em;
+        margin-bottom: 10px;
+    }
+
+    .filter-right {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+}
+
+/* Filtres pour très petits écrans */
+@media (max-width: 576px) {
+    .filter-header {
+        gap: 10px;
+    }
+
+    .filter-left {
+        font-size: 0.9em;
+    }
+
+    .filter-right {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+}
+
+/* Pour les écrans très petits */
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 1 colonne */
+    }
+
+    .recipe-image {
+        height: 150px;
+    }
+    /* Les filtres deviennent une colonne sur mobile */
+    .filter-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px; /* Ajoute un espace entre les éléments */
+    }
+
+    .filter-left {
+        font-size: 1em;
+        margin-bottom: 10px; /* Espacement entre le compteur et les filtres */
+    }
+
+    .filter-right {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Ajoute un espace entre les dropdowns */
+        width: 100%; /* Prend toute la largeur disponible */
+    }
+
+    .dropdown {
+        width: 100%; /* Les dropdowns prennent toute la largeur */
+    }
+}
+
+
+
+/* Titre de la recette */
+.recipe-title {
+    font-size: 1.5em;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Description limitée à 3 lignes */
+.recipe-description {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 16px;
+    line-height: 1.4em;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Grille des ingrédients */
+.ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
+    gap: 8px;
+    width: 100%;
+    text-align: left;
+    margin-top: 10px;
+}
+
+/* Style des ingrédients */
+.ingredient {
+    font-size: 0.9em;
+    color: #555;
+    display: flex;
+    flex-direction: column; /* Affiche le nom de l'ingrédient au-dessus de la quantité */
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.ingredient strong {
+    font-weight: bold;
+    margin-bottom: 4px; /* Espace entre le nom et la quantité */
+}
+
+.ingredient span {
+    font-size: 0.85em;
+    color: #777;
+}
+
+
+/* Styles pour la pagination */
+.pagination {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.pagination button {
+    background: #fff;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.pagination button.active {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+
+/* Section de filtre */
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Nombre total de recettes */
+.filter-left {
+    font-size: 1.1em;
+    color: #333;
+}
+
+
+/* Dropdowns de filtre */
+.dropdown-container {
+    position: relative;
+}
+
+
+.filter-right {
+    display: flex;
+    gap: 15px;
+}
+
+.dropdown {
+    position: relative;
+    width: 200px;
+}
+
+
+.dropdown-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    outline: none;
+    background: #fff;
+    overflow: hidden;
+    height: auto;
+}
+
+/* Tags affichés pour les sélections */
+
+.dropdown-select[multiple] {
+    height: auto; /* Permet l'ajustement automatique */
+    max-height: 150px; /* Limite la hauteur */
+    overflow-y: auto; /* Ajoute un défilement si nécessaire */
+}
+
+/* Options sélectionnées */
+.dropdown-select[multiple] option:checked {
+    background: #007bff;
+    color: #fff;
+}
+
+
+.dropdown-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    outline: none;
+}
+
+.dropdown-options {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    display: none;
+}
+
+.dropdown-options li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown-options li:hover {
+    background-color: #f0f0f0;
+}
+/* Affiche les options lors de la saisie */
+.dropdown-options.show {
+    display: block;
+}
+
+.dropdown-input::placeholder {
+    color: #aaa;
+}
+
+.selected-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ffd700;
+    color: #000;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.badge span {
+    margin-right: 8px;
+}
+
+.badge .remove {
+    font-size: 1em;
+    color: #000;
+    cursor: pointer;
+    margin-left: 5px;
+    font-weight: bold;
+}

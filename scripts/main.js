@@ -228,14 +228,14 @@ function setupPagination() {
 
 // Recherche en temps réel via la barre de recherche principale
 function liveSearchRecipes(query) {
-    const lowerCaseQuery = query.toLowerCase();
+    const terms = query.toLowerCase().split(',').map(term => term.trim()); // Séparer par virgules
 
     filteredRecipes = allRecipes.filter(recipe => {
-        return (
-            recipe.name.toLowerCase().includes(lowerCaseQuery) ||
-            recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(lowerCaseQuery)) ||
-            recipe.appliance.toLowerCase().includes(lowerCaseQuery) ||
-            recipe.ustensils.some(ust => ust.toLowerCase().includes(lowerCaseQuery))
+        return terms.every(term => 
+            recipe.name.toLowerCase().includes(term) ||
+            recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(term)) ||
+            recipe.appliance.toLowerCase().includes(term) ||
+            recipe.ustensils.some(ust => ust.toLowerCase().includes(term))
         );
     });
 
@@ -244,17 +244,14 @@ function liveSearchRecipes(query) {
     displayRecipes(); // Affiche les recettes filtrées
 }
 
-
 // Gestion des événements pour la recherche principale
 const searchInput = document.getElementById("search-bar");
 searchInput.addEventListener("input", (e) => {
     const query = e.target.value;
-    if (query.length >= 3) {
+    if (query.length >= 3) { // Recherche uniquement si au moins 3 caractères sont tapés
         liveSearchRecipes(query);
     }
 });
-
-
 
 
 // Gestion des événements de recherche dans les dropdowns
