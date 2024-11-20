@@ -1,4 +1,10 @@
 # === Documentation des problèmes et solutions ===
+## 9. Modification des readme et documentation de projet.
+- *Problème* : Les documents .md pour expliquer le projets et assurer un suivi n'était pas correctement implementer.
+- _Solution_ : Ajout de ces fichiers.
+## 8. Composant aligné pour les cartes de recettes.
+- *Problème* : Les cartes de recettes n'avaient pas une présentation claire et alignée selon le mockup.
+- _Solution_ : Création d'un nouveau composant pour organiser les cartes avec des informations alignées à gauche et à droite.
 
 ## 7. Champ texte dans les filtres ne se vide pas.
 - *Problème* : Après la sélection d'un filtre (ingrédients, ustensiles ou appareils), le champ texte associé restait rempli au lieu de se vider.
