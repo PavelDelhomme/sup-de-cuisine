@@ -1,8 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');*/
+/*@import url('https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKOzY.woff2');*/
+/*@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap');*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap');
+
 
 /* === Global Styles === */
 body {
-    font-family: 'Roboto', Arial, sans-serif;
+    /*font-family: 'Roboto', Arial, sans-serif;*/
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #f8f8f8;
     margin: 0;
     padding: 20px;
@@ -26,12 +31,40 @@ body {
 }
 
 .search-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 40px 12px 12px; /* Espace pour l'icône */
+    border: 1px solid #ddd;
+    border-radius: 0; /* Suppression de l'arrondi */
+    font-size: 1em;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    color: #333;
+    pointer-events: none;
+}
+
+/*
+.search-container {
     margin-top: 10px;
     position: relative;
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
 }
+
 
 .search-input {
     width: 100%;
@@ -58,7 +91,7 @@ body {
 .search-btn i {
     pointer-events: none;
 }
-
+*/
 /* === Dropdown Styles === */
 .dropdown {
     position: relative;
@@ -69,43 +102,27 @@ body {
     position: relative;
 }
 
-.dropdown-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 0.9em;
-    outline: none;
-}
-
-.dropdown-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
+/* === Dropdown container === */
 .dropdown-options {
-    display: none;
+    display: none; /* Par défaut caché */
     opacity: 0;
     list-style: none;
     padding: 0;
     margin: 5px 0 0;
-    max-height: 150px;
+    max-height: 200px; /* Ajustez la hauteur si nécessaire */
     overflow-y: auto;
-    border-radius: 4px;
     border: 1px solid #ddd;
     background: #fff;
     position: absolute;
     width: 100%;
     z-index: 10;
-    display: none;
-    transition: all 0.3s ease-in-out;
-    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     transform: scaleY(0);
     transform-origin: top;
 }
 
 .dropdown-options.show {
-    display: block;
+    display: block; /* Affiche le dropdown */
     opacity: 1;
     transform: scaleY(1);
 }
@@ -113,10 +130,28 @@ body {
 .dropdown-options li {
     padding: 8px;
     cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .dropdown-options li:hover {
-    background-color: #f0f0f0;
+    background-color: #f8f8f8;
+}
+
+/* === Search input === */
+.dropdown-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 0; /* Suppression de l'arrondi */
+    font-size: 1em;
+    outline: none;
+}
+
+
+
+.dropdown-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .dropdown-input::placeholder {
@@ -191,9 +226,19 @@ body {
 
 .recipe-title {
     font-size: 1.5em;
-    margin-bottom: 8px;
     font-weight: bold;
     color: #333;
+    text-transform: uppercase; /* Convertit en majuscules */
+    margin: 10px 0;
+}
+
+.ingredients-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-transform: uppercase; /* Convertit en majuscules */
+    color: #444;
 }
 
 .recipe-description {
@@ -202,6 +247,7 @@ body {
     margin-bottom: 16px;
     line-height: 1.4em;
     display: -webkit-box;
+    line-clamp: 3;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -245,22 +291,19 @@ body {
     background-color: #fff;
     padding: 10px 20px;
     border-bottom: 1px solid #ddd;
-    margin-bottom: 20px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
 }
 
 .filter-left {
-    font-size: 1.1em;
+    font-size: 1.2em;
+    font-weight: bold;
     color: #333;
 }
 
 .filter-right {
     display: flex;
     gap: 15px;
-    justify-content: flex-end;
 }
+
 
 /* === Pagination === */
 .pagination {
@@ -275,6 +318,7 @@ body {
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 4px;
+    transition: background 0.3s ease;
 }
 
 .pagination button.active {
@@ -282,6 +326,11 @@ body {
     color: #fff;
     border-color: #007bff;
 }
+
+.pagination button:hover:not(.active) {
+    background: #f0f0f0;
+}
+
 
 /* === Media Queries === */
 @media (max-width: 992px) {

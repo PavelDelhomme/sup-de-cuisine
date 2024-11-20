@@ -1,7 +1,6 @@
-import { filteredRecipes } from "./data.js";
+import { filteredRecipes, setCurrentPage, currentPage } from "./data.js";
 
 const recipesPerPage = 9;
-let currentPage = 1;
 
 export function displayRecipes() {
     const main = document.querySelector("main");
@@ -25,24 +24,26 @@ export function displayRecipes() {
     const gridContainer = document.createElement("div");
     gridContainer.className = "grid-container";
 
+
     recipesToDisplay.forEach((recipe) => {
         const recipeCard = document.createElement("div");
         recipeCard.className = "recipe-card";
         const formattedIngredients = recipe.ingredients
             .map(
                 (ing) => `
-            <div class="ingredient">
-                <strong>${ing.ingredient}</strong>
-                <span>${ing.quantity || ""} ${ing.unit || ""}</span>
-            </div>
-        `
+                <div class="ingredient">
+                    <strong>${ing.ingredient}</strong>
+                    <span>${ing.quantity || ""} ${ing.unit || ""}</span>
+                </div>
+            `
             )
             .join("");
 
         recipeCard.innerHTML = `
             <img src="data/images/${recipe.image}" alt="${recipe.name}" class="recipe-image">
-            <h2 class="recipe-title">${recipe.name}</h2>
+            <h2 class="recipe-title">RECETTE : ${recipe.name}</h2>
             <p class="recipe-description">${truncateText(recipe.description, 120)}</p>
+            <h3 class="ingredients-title">INGRÉDIENTS</h3>
             <div class="ingredients-grid">${formattedIngredients}</div>
         `;
         gridContainer.appendChild(recipeCard);
@@ -55,6 +56,7 @@ export function displayRecipes() {
 function truncateText(text, maxLength) {
     return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
 }
+
 
 function setupPagination() {
     const paginationContainer = document.querySelector(".pagination") || document.createElement("div");
@@ -72,7 +74,7 @@ function setupPagination() {
             pageButton.textContent = i;
             pageButton.className = i === currentPage ? "active" : "";
             pageButton.addEventListener("click", () => {
-                currentPage = i;
+                setCurrentPage(i);
                 displayRecipes();
             });
             paginationContainer.appendChild(pageButton);

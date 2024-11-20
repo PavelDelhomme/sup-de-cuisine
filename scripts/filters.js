@@ -1,4 +1,4 @@
-import { allRecipes, filteredRecipes } from "./data.js";
+import { allRecipes, filteredRecipes, setCurrentPage } from "./data.js";
 import { displayRecipes } from "./recipes.js";
 
 export function applyFilters(selectedIngredients, selectedAppliances, selectedUtensils) {
@@ -24,5 +24,5 @@ export function applyFilters(selectedIngredients, selectedAppliances, selectedUt
 }
 
 function resetPagination() {
-    currentPage = 1;
+    setCurrentPage(1);
 }

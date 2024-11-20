@@ -1,13 +1,8 @@
-// search.js
-import { allRecipes, filteredRecipes } from "./data.js";
+import { allRecipes, filteredRecipes, setCurrentPage } from "./data.js";
 import { displayRecipes } from "./recipes.js";
 
 export function setupGlobalSearch() {
     const searchInput = document.getElementById("search-bar");
-    const suggestionsContainer = document.createElement("ul");
-    suggestionsContainer.classList.add("suggestions");
-    searchInput.parentElement.appendChild(suggestionsContainer);
-
     const clearButton = document.createElement("span");
     clearButton.classList.add("clear-btn");
     clearButton.textContent = "×";
@@ -21,11 +16,10 @@ export function setupGlobalSearch() {
             const results = searchRecipes(query);
             filteredRecipes.length = 0;
             filteredRecipes.push(...results);
-            updateSuggestions(results, suggestionsContainer);
+            resetPagination();
             displayRecipes();
             clearButton.style.display = "inline";
         } else {
-            suggestionsContainer.innerHTML = "";
             resetRecipes();
             clearButton.style.display = "none";
         }
@@ -39,27 +33,21 @@ export function setupGlobalSearch() {
 }
 
 function searchRecipes(query) {
+    if (!allRecipes || allRecipes.length === 0) return []; // Fallback si allRecipes est vide
+
     return allRecipes.filter((recipe) =>
         recipe.name.toLowerCase().includes(query) ||
         recipe.ingredients.some((ing) => ing.ingredient.toLowerCase().includes(query))
     );
 }
 
-function updateSuggestions(results, container) {
-    container.innerHTML = "";
-    results.slice(0, 5).forEach((recipe) => {
-        const suggestionItem = document.createElement("li");
-        suggestionItem.classList.add("suggestion-item");
-        suggestionItem.innerHTML = `
-            <img src="data/images/${recipe.image}" alt="${recipe.name}" class="suggestion-image">
-            <span>${recipe.name}</span>
-        `;
-        container.appendChild(suggestionItem);
-    });
-}
-
 function resetRecipes() {
     filteredRecipes.length = 0;
     filteredRecipes.push(...allRecipes);
+    resetPagination();
     displayRecipes();
+}
+
+function resetPagination() {
+    setCurrentPage(1);
 }

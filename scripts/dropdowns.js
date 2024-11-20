@@ -1,5 +1,6 @@
 // dropdowns.js
 import { applyFilters } from "./filters.js";
+import { filteredRecipes } from "./data.js";
 import { displayRecipes } from "./recipes.js";
 
 const selectedFilters = {
@@ -14,23 +15,23 @@ export function setupDropdowns() {
     setupDropdown("utensil", "utensil-options", selectedFilters.utensils);
 }
 
+
 function setupDropdown(type, dropdownId, selectedList) {
     const searchInput = document.getElementById(`${type}-search`);
     const dropdown = document.getElementById(dropdownId);
 
     searchInput.addEventListener("focus", () => {
-        populateDropdown(type, dropdownId);
+        populateDropdown(type, dropdownId, searchInput);
         toggleDropdown(dropdown, true);
     });
 
     searchInput.addEventListener("input", () => {
-        const query = searchInput.value.toLowerCase();
-        filterDropdownOptions(query, dropdown);
+        populateDropdown(type, dropdownId, searchInput);
     });
 
     dropdown.addEventListener("click", (e) => {
         if (e.target.tagName === "LI") {
-            const value = e.target.textContent;
+            const value = e.target.textContent.trim();
             if (!selectedList.includes(value)) {
                 selectedList.push(value);
                 updateFilters();
@@ -45,19 +46,36 @@ function setupDropdown(type, dropdownId, selectedList) {
         }
     });
 }
-
-function populateDropdown(type, dropdownId) {
+function populateDropdown(type, dropdownId, searchInput) {
     const dropdown = document.getElementById(dropdownId);
-    dropdown.innerHTML = "";
-    const options = getOptionsForType(type);
+    dropdown.innerHTML = ""; // Vider les options existantes
+
+    const options = getOptionsForType(type).filter(option =>
+        option.toLowerCase().includes(searchInput.value.toLowerCase())
+    );
+
+    console.log(`Options pour ${type} après filtrage :`, options);
+
+    if (options.length === 0) {
+        dropdown.classList.remove("show"); // Cache le dropdown si aucune option
+        console.log("Aucune options pour le dropdown  de type ", type);
+        return;
+    }
+
     options.forEach((option) => {
         const li = document.createElement("li");
         li.textContent = option;
+        li.classList.add("dropdown-option"); // Classe CSS pour le style des options
         dropdown.appendChild(li);
     });
+
+    dropdown.classList.add("show"); // Affiche le dropdown avec les options
 }
 
+
 function getOptionsForType(type) {
+    if (!filteredRecipes || filteredRecipes.length === 0) return [];
+
     if (type === "ingredient") return [...new Set(filteredRecipes.flatMap(recipe => recipe.ingredients.map(ing => ing.ingredient)))];
     if (type === "appliance") return [...new Set(filteredRecipes.map(recipe => recipe.appliance))];
     if (type === "utensil") return [...new Set(filteredRecipes.flatMap(recipe => recipe.ustensils))];
@@ -85,8 +103,15 @@ function updateFilters() {
         selectedFilters.appliances,
         selectedFilters.utensils
     );
+
+    // Mettre à jour les dropdowns
+    populateDropdown("ingredient", "ingredient-options", document.getElementById("ingredient-search"));
+    populateDropdown("appliance", "appliance-options", document.getElementById('appliance-search'));
+    populateDropdown("utensil", "utensil-options", document.getElementById("utensil-search"));
+
     displayRecipes();
 }
+
 
 function updateBadges(type, value, selectedList) {
     const badgeContainer = document.getElementById("selected-filters");
