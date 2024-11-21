@@ -1,12 +1,18 @@
 # === Documentation des problèmes et solutions ===
-## 9. Modification des readme et documentation de projet.
-- *Problème* : Les documents .md pour expliquer le projets et assurer un suivi n'était pas correctement implementer.
-- _Solution_ : Ajout de ces fichiers.
-## 8. Composant aligné pour les cartes de recettes.
-- *Problème* : Les cartes de recettes n'avaient pas une présentation claire et alignée selon le mockup.
-- _Solution_ : Création d'un nouveau composant pour organiser les cartes avec des informations alignées à gauche et à droite.
 
-## 7. Champ texte dans les filtres ne se vide pas.
+## 10. Gestion des données manquantes dans les cartes
+- *Problème* : Certaines recettes manquent de données comme des images ou des descriptions.
+- _Solution_ : Ajout d'une vérification conditionnelle pour remplacer les données manquantes par des valeurs par défaut (exemple : image générique, message "Description non disponible").
+
+## 9. Modification des readme et documentation de projet
+- *Problème* : Les documents `.md` pour expliquer le projet et assurer un suivi n'étaient pas correctement implémentés.
+- _Solution_ : Ajout des fichiers `taches_projets.md` et `journal_de_corrections.md`.
+
+## 8. Composant aligné pour les cartes de recettes
+- *Problème* : Les cartes de recettes n'avaient pas une présentation claire et alignée selon le mockup.
+- _Solution_ : Création d'un nouveau composant pour organiser les cartes avec des informations alignées à gauche.
+
+## 7. Champ texte dans les filtres ne se vide pas
 - *Problème* : Après la sélection d'un filtre (ingrédients, ustensiles ou appareils), le champ texte associé restait rempli au lieu de se vider.
 - _Solution_ : Ajout d'une ligne pour réinitialiser la valeur du champ texte après l'ajout d'un filtre. 
 
@@ -34,33 +40,39 @@
 - *Problème* : Une erreur "Failed to decode downloaded font" apparaissait dans la console.
 - _Solution_ : L'erreur a été ignorée, car elle n'affecte pas la fonctionnalité principale.
 
-___
+---
 
 # === Historique des commits ===
 
-## 8. Commits - Nov 20, 2024
-- `Correction des champs texte dans les filtres` - Ajout de la logique pour vider automatiquement le champs texte des filtres après la sélection.
+## 10. Commits - Nov 21, 2024
+- `Gestion des données manquantes pour les cartes de recettes`.
+- `Amélioration de la présentation des cartes et tests CSS`.
 
-## 7. Commits - Nov 19, 2024
-- `Réorganisation du code CSS notamment` - Réorganisation du code CSS pour une meilleure lisibilité et maintenanbilité.
+## 9. Commits - Nov 20, 2024
+- `Correction des champs texte dans les filtres` - Ajout de la logique pour vider automatiquement le champ texte des filtres après la sélection.
 
-## 6. Commits - Nov 18, 2024
+## 8. Commits - Nov 19, 2024
+- `Réorganisation du code CSS notamment` - Réorganisation du code CSS pour une meilleure lisibilité et maintenabilité.
+
+## 7. Commits - Nov 18, 2024
 - `Intégration de Docker et ajout d'explications dans le README`.
 - `Réarrangement du filtre et ajout de la possibilité de supprimer des filtres avec des badges`.
 
-## 5. Commits - Nov 17, 2024
+## 6. Commits - Nov 17, 2024
 - `Ajout de la recherche d'ingrédients`.
 - `Organisation du code et gestion des recettes`.
 
-## 4. Commits - Nov 16, 2024
+## 5. Commits - Nov 16, 2024
 - `Amélioration de l'affichage dynamique des filtres`.
 
-## 3. Commits - Nov 15, 2024
+## 4. Commits - Nov 15, 2024
 - `Ajout de la pagination et ajustement des styles`.
 
-## 2. Commits - Oct 28, 2024
+## 3. Commits - Oct 28, 2024
 - `Fonctionnalité de recherche initiale implémentée avec affichage des ingrédients dans des modals`.
+
+## 2. Commits - Oct 25, 2024
+- `Ajout des premières logiques JS pour les filtres`.
 
 ## 1. First commit
 - `Mise en place initiale du projet`.
-
