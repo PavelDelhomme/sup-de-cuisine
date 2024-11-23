@@ -6,38 +6,95 @@ let activeTags = [];
 
 export function setupGlobalSearch() {
     const searchInput = document.getElementById("search-bar");
-    const tagContainer = document.getElementById("selected-filters");
-    const clearButton = document.createElement("span");
-
-    clearButton.classList.add("clear-btn");
-    clearButton.textContent = "×";
-    clearButton.style.display = "none";
-    searchInput.parentElement.appendChild(clearButton);
-
-    // Afficher les suggestions sur le focus
-    searchInput.addEventListener("focus", () => {
-        displaySuggestions(); // Affiche les suggestions
-    });
+    const tagsContainer = document.getElementById("tags-container");
+    const selectedTagsContainer = document.getElementById("selected-filters");
+    
+    let activeTags = new Set();
 
     searchInput.addEventListener("input", (e) => {
-        const query = e.target.value.trim().toLowerCase();
+        const query = e.target.value.trim();
         if (query.length >= 3) {
-            searchWithTags(query);
-        } else {
-            resetRecipes();
+            updateSuggestions(query, activeTags);
         }
-
-        clearButton.style.display = query || activeTags.length > 0 ? "inline" : "none";
+        handleSearch(query, activeTags);
     });
 
-    clearButton.addEventListener("click", () => {
-        searchInput.value = "";
-        activeTags = [];
-        resetRecipes();
-        clearButton.style.display = "none";
-        tagContainer.innerHTML = "";
+    function addTag(tagText) {
+        if (activeTags.has(tagText)) return;
+        
+        activeTags.add(tagText);
+        const tag = createTagElement(tagText, () => {
+            activeTags.delete(tagText);
+            updateSuggestions(searchInput.value.trim(), activeTags);
+            handleSearch(searchInput.value.trim(), activeTags);
+        });
+        selectedTagsContainer.appendChild(tag);
+        
+        handleSearch(searchInput.value.trim(), activeTags);
+    }
+
+    tagsContainer.addEventListener("click", (e) => {
+        const tagElement = e.target.closest(".tag");
+        if (tagElement) {
+            const tagText = tagElement.dataset.value;
+            addTag(tagText);
+        }
     });
 }
+
+
+
+function createTagElement(text, onRemove) {
+    const tag = document.createElement("div");
+    tag.className = "active-tag";
+    tag.innerHTML = `
+        <span class="tag-text">${text}</span>
+        <button class="tag-remove">×</button>
+    `;
+    tag.querySelector(".tag-remove").addEventListener("click", () => {
+        tag.remove();
+        onRemove();
+    });
+    return tag;
+}
+
+function updateSuggestions(query, activeTags) {
+    const tagsContainer = document.getElementById("tags-container");
+    tagsContainer.innerHTML = "";
+    
+    const suggestions = getAllSuggestions()
+        .filter(tag => !activeTags.has(tag))
+        .filter(tag => tag.toLowerCase().includes(query.toLowerCase()));
+
+    suggestions.forEach(tag => {
+        const tagElement = document.createElement("div");
+        tagElement.className = "tag";
+        tagElement.dataset.value = tag;
+        tagElement.textContent = tag;
+        tagsContainer.appendChild(tagElement);
+    });
+}
+
+function handleSearch(query, activeTags) {
+    filteredRecipes.length = 0;
+    filteredRecipes.push(...allRecipes.filter(recipe => {
+        const matchesQuery = !query || 
+            recipe.name.toLowerCase().includes(query.toLowerCase()) ||
+            recipe.description.toLowerCase().includes(query.toLowerCase());
+        
+        const matchesTags = Array.from(activeTags).every(tag =>
+            recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(tag.toLowerCase())) ||
+            recipe.appliance.toLowerCase().includes(tag.toLowerCase()) ||
+            recipe.ustensils.some(u => u.toLowerCase().includes(tag.toLowerCase()))
+        );
+        
+        return matchesQuery && matchesTags;
+    }));
+    
+    displayRecipes();
+    updateAdvancedSearchFields();
+}
+
 
 export function displaySuggestions() {
     const tagsContainer = document.getElementById("tags-container");
