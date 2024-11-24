@@ -1,7 +1,6 @@
 // dropdowns.js
-import { applyFilters, isGlobalSearchActive } from "./filters.js";
+import { isGlobalSearchActive } from "./filters.js";
 import { filteredRecipes } from "./data.js";
-import { displayRecipes } from "./recipes.js";
 import { addTag } from "./search.js";
 
 const selectedFilters = {
@@ -108,64 +107,7 @@ function getOptionsForType(type) {
     }
 }
 
-
-function toggleDropdown(dropdown, show) {
-    dropdown.style.display = show ? "block" : "none";
-}
-
-function filterDropdownOptions(query, dropdown) {
-    const items = dropdown.querySelectorAll("li");
-    items.forEach((item) => {
-        if (item.textContent.toLowerCase().includes(query)) {
-            item.style.display = "block";
-        } else {
-            item.style.display = "none";
-        }
-    });
-}
-
-
-function updateFilters() {
-    applyFilters(
-        selectedFilters.ingredients,
-        selectedFilters.appliances,
-        selectedFilters.utensils
-    );
-
-
-    // Met à jour les recettes affichées
-    displayRecipes();
-    // Actualise les suggestions après chaque mise à jour
-    //displaySuggestions();
-}
-
-
-
-function updateBadges(type, value, selectedList) {
-    const badgeContainer = document.getElementById("selected-filters");
-
-    if (!badgeContainer) return;
-
-    const badge = document.createElement("div");
-    badge.className = "badge";
-    badge.innerHTML = `
-        <span>${value}</span>
-        <span class="remove" data-type="${type}" data-value="${value}">×</span>
-    `;
-    
-    badge.querySelector(".remove").addEventListener("click", () => {
-        const index = selectedList.indexOf(value);
-        if (index > -1) {
-            selectedList.splice(index, 1);
-            badge.remove();
-            updateFilters();
-        }
-    });
-    
-    badgeContainer.appendChild(badge);
-}
-
-function closeAllDropdowns() {
+export function closeAllDropdowns() {
     const dropdowns = document.querySelectorAll(".dropdown-options");
     dropdowns.forEach(dropdown => dropdown.classList.remove("show"));
 }

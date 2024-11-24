@@ -4,6 +4,7 @@ import { updateAdvancedSearchFields, isGlobalSearchActive } from "./filters.js";
 
 let activeTags = new Set();
 
+
 export function setupGlobalSearch() {
     const searchInput = document.getElementById("search-bar");
     const tagsContainer = document.getElementById("tags-container");
@@ -27,7 +28,15 @@ export function setupGlobalSearch() {
             addTag(tagText); // Ajoute le tag
         }
     });
-    
+    searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            const query = e.target.value.trim();
+            if (query) {
+                addTag(query);
+                searchInput.value = "";
+            }
+        }
+    });
 }
 
 
@@ -49,7 +58,7 @@ function createTagElement(text, onRemove) {
 function updateSuggestions(query, activeTags) {
     const tagsContainer = document.getElementById("tags-container");
     tagsContainer.innerHTML = "";
-    
+
     const suggestions = getAllSuggestions()
         .filter(tag => !activeTags.has(tag))
         .filter(tag => tag.toLowerCase().includes(query.toLowerCase()));
@@ -57,8 +66,10 @@ function updateSuggestions(query, activeTags) {
     suggestions.forEach(tag => {
         const tagElement = document.createElement("div");
         tagElement.className = "tag";
-        tagElement.dataset.value = tag;
         tagElement.textContent = tag;
+        tagElement.addEventListener("click", () => {
+            addTag(tag); // Ajouter le tag en cliquant sur la suggestion
+        });
         tagsContainer.appendChild(tagElement);
     });
 }
@@ -78,9 +89,9 @@ function handleSearch(query, activeTags) {
                 );
 
             const matchesTags = Array.from(activeTags).every((tag) =>
-                recipe.ingredients.some((ing) => ing.ingredient.toLowerCase() === tag.toLowerCase()) ||
-                recipe.appliance.toLowerCase() === tag.toLowerCase() ||
-                recipe.ustensils.some((ust) => ust.toLowerCase() === tag.toLowerCase())
+                recipe.ingredients.some((ing) => ing.ingredient.toLowerCase() === tag) ||
+                recipe.appliance.toLowerCase() === tag ||
+                recipe.ustensils.some((ust) => ust.toLowerCase() === tag)
             );
 
             return matchesQuery && matchesTags; // Combine recherche et tags
@@ -94,20 +105,22 @@ function handleSearch(query, activeTags) {
         displayRecipes(); // Met à jour les recettes affichées
     }
 
-    updateAdvancedSearchFields(filteredRecipes);
-    displaySuggestions(); // Met à jour les suggestions
+    updateAdvancedSearchFields(filteredRecipes); // Met à jour les champs de recherche avancée
+    displaySuggestions(); // Met à jour les suggestions de tags
 }
 
 
 
 
 export function addTag(tagText) {
-    if (activeTags.has(tagText)) return; // Évite les doublons
+    tagText = tagText.trim().toLowerCase(); // Nettoyer le texte pour éviter les doublons
+    if (activeTags.has(tagText)) return; // Ne pas ajouter de doublons
 
-    activeTags.add(tagText);
-    updateActiveTagsDisplay(); // Met à jour l'affichage des tags actifs
-    handleSearch(document.getElementById("search-bar").value.trim(), activeTags); // Relance la recherche
+    activeTags.add(tagText); // Ajouter le tag
+    updateActiveTagsDisplay(); // Mettre à jour l'affichage des tags actifs
+    handleSearch(document.getElementById("search-bar").value.trim(), activeTags); // Relancer la recherche
 }
+
 
 
 
@@ -178,14 +191,9 @@ function updateActiveTagsDisplay() {
     const selectedTagsContainer = document.getElementById("selected-filters");
     selectedTagsContainer.innerHTML = ""; // Vide les tags affichés
 
+
     activeTags.forEach((tag) => {
-        const tagElement = document.createElement("div");
-        tagElement.className = "active-tag";
-        tagElement.innerHTML = `handleSearch
-            <span>${tag}</span>
-            <button class="tag-remove">×</button>
-        `;
-        tagElement.querySelector(".tag-remove").addEventListener("click", () => {
+        const tagElement = createTagElement(tag, () => {
             activeTags.delete(tag); // Supprime le tag
             updateActiveTagsDisplay(); // Met à jour l'affichage
             handleSearch(document.getElementById("search-bar").value.trim(), activeTags); // Relance la recherche
@@ -196,92 +204,10 @@ function updateActiveTagsDisplay() {
 
 
 
-function searchWithTags(query = "") {
-    filteredRecipes.length = 0;
-
-    // Filtrer toutes les recettes en fonction des tags actifs et de la recherche globale
-    filteredRecipes.push(
-        ...allRecipes.filter((recipe) => {
-            const matchesQuery =
-                query === "" ||
-                recipe.name.toLowerCase().includes(query) || // Correspondance dans le titre
-                recipe.ingredients.some((ing) =>
-                    ing.ingredient && ing.ingredient.toLowerCase().includes(query)
-                ) || // Correspondance dans les ingrédients
-                recipe.description.toLowerCase().includes(query); // Correspondance dans la description
-
-            const matchesTags = activeTags.every((tag) => {
-                return (
-                    recipe.name.toLowerCase().includes(tag) || // Vérifie le tag dans le titre
-                    recipe.ingredients.some((ing) =>
-                        ing.ingredient && ing.ingredient.toLowerCase().includes(tag)
-                    ) || // Vérifie le tag dans les ingrédients
-                    recipe.description.toLowerCase().includes(tag) // Vérifie le tag dans la description
-                );
-            });
-
-            // La recette doit correspondre à la recherche ET aux tags actifs
-            return matchesQuery && matchesTags;
-        })
-    );
-
-    // Gérer les cas où aucune recette ne correspond
-    if (filteredRecipes.length === 0) {
-        console.log("Aucune recette ne correspond à la recherche ou aux tags.");
-        const main = document.querySelector("main");
-        main.innerHTML = `<p>Aucune recette ne correspond à votre recherche ou à vos tags.</p>`;
-        return;
-    }
-
-    // Mettre à jour les résultats
-    resetSearchPagination();
-    displayRecipes();
-    updateAdvancedSearchFields(filteredRecipes); // Met à jour les suggestions basées sur les résultats
-    displaySuggestions(); // Met à jour les suggestions dynamiques
-}
-
-
-
-function resetRecipes() {
-    filteredRecipes.length = 0;
-    filteredRecipes.push(...allRecipes);
-    resetSearchPagination();
-    displayRecipes();
-    updateAdvancedSearchFields(allRecipes);
-}
-
-
-function searchRecipes(query) {
-    if (!allRecipes || allRecipes.length === 0) return []; // Fallback si allRecipes est vide
-
-    const results = allRecipes.filter(
-        (recipe) => 
-            recipe.name.toLowerCase().includes(query) ||
-            recipe.ingredients.some((ing) => ing.ingredient.toLowerCase().includes(query)) ||
-            recipe.description.toLowerCase().includes(query)
-    );
-
-    if (results.length === 0) {
-        displayNoResultsMessage(query);
-    }
-
-    return results;
-}
-
-
 function resetSearchPagination() {
     setCurrentPage(1);
 }
 
-
-function displayNoResultsMessage(query) {
-    const main = document.querySelector("main");
-    main.innerHTML = `
-        <p>Aucune recettes ne contient "<strong>${query}</strong>".</p>
-    `;
-    const paginationContainer = document.querySelector(".pagination");
-    if (paginationContainer) paginationContainer.innerHTML = ""; 
-}
 
 export function displayTags() {
     const tagsContainer = document.getElementById("tags-container");

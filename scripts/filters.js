@@ -3,7 +3,7 @@ import { allRecipes, filteredRecipes, setCurrentPage } from "./data.js";
 import { displayRecipes } from "./recipes.js";
 import { displaySuggestions } from "./search.js";
 
-let isGlobalSearchActive = false;
+export let isGlobalSearchActive = false;
 
 
 export function updateAdvancedSearchFields() {
@@ -71,51 +71,3 @@ export function applyFilters(selectedIngredients, selectedAppliances, selectedUt
     displayRecipes();
     updateAdvancedSearchFields();
 }
-/*
-import { populateDropdown } from "./dropdowns.js"; // Ajoutez cette ligne
-import { allRecipes, filteredRecipes, setCurrentPage } from "./data.js";
-import { displayRecipes } from "./recipes.js";
-
-export function updateAdvancedSearchFields(recipes) {
-    if (!recipes || recipes.length === 0) {
-        console.log("Aucune recette pour mettre à jour les champs de recherche.");
-        return;
-    }
-
-    populateDropdown("ingredient", "ingredient-options", recipes);
-    populateDropdown("appliance", "appliance-options", recipes);
-    populateDropdown("utensil", "utensil-options", recipes);
-    displaySuggestions(); // Actualise les suggestions de tags disponibles
-}
-
-export function applyFilters(selectedIngredients, selectedAppliances, selectedUtensils) {
-    filteredRecipes.length = 0;
-
-    filteredRecipes.push(
-        ...allRecipes.filter((recipe) => {
-            const matchesIngredients = selectedIngredients.every((ing) =>
-                recipe.ingredients.some((ri) => ri.ingredient.toLowerCase() === ing.toLowerCase())
-            );
-            const matchesAppliances = selectedAppliances.every((app) =>
-                recipe.appliance.toLowerCase() === app.toLowerCase()
-            );
-            const matchesUtensils = selectedUtensils.every((ut) =>
-                recipe.ustensils.some((ust) => ust.toLowerCase() === ut.toLowerCase())
-            );
-
-            return matchesIngredients && matchesAppliances && matchesUtensils;
-        })
-    );
-
-    if (filteredRecipes.length === 0) {
-        console.log("Aucune recette ne correspond aux filtres.");
-        const main = document.querySelector("main");
-        main.innerHTML = `<p>Aucune recette ne correspond à vos filtres.</p>`;
-    }
-
-    setCurrentPage(1); // Réinitialise la pagination
-    displayRecipes(); // Affiche les résultats filtrés
-    updateAdvancedSearchFields(filteredRecipes); // Met à jour les suggestions avec les résultats filtrés
-    displaySuggestions(); // Rafraîchit les suggestions dynamiques
-}
-*/
