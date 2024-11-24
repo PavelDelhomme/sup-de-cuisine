@@ -3,7 +3,12 @@ import { allRecipes, filteredRecipes, setCurrentPage } from "./data.js";
 import { displayRecipes } from "./recipes.js";
 import { displaySuggestions } from "./search.js";
 
+let isGlobalSearchActive = false;
+
+
 export function updateAdvancedSearchFields() {
+    if (isGlobalSearchActive) return;
+    
     if (!filteredRecipes || filteredRecipes.length === 0) {
         console.log("Aucune recette pour mettre à jour les champs de recherche.");
         return;
@@ -17,7 +22,7 @@ export function updateAdvancedSearchFields() {
 
     searchElements.forEach(({ type, id }) => {
         const searchInput = document.getElementById(`${type}-search`);
-        if (searchInput) {
+        if (searchInput && searchInput === document.activeElement) {
             populateDropdown(type, id, searchInput);
         }
     });

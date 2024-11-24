@@ -1,7 +1,8 @@
 // dropdowns.js
-import { applyFilters } from "./filters.js";
+import { applyFilters, isGlobalSearchActive } from "./filters.js";
 import { filteredRecipes } from "./data.js";
 import { displayRecipes } from "./recipes.js";
+import { addTag } from "./search.js";
 
 const selectedFilters = {
     ingredients: [],
@@ -15,7 +16,7 @@ export function setupDropdowns() {
     setupDropdown("utensil", "utensil-options", selectedFilters.utensils);
 }
 
-function setupDropdown(type, dropdownId, selectedList) {
+function setupDropdown(type, dropdownId) {
     const searchInput = document.getElementById(`${type}-search`);
     const dropdown = document.getElementById(dropdownId);
     if (!searchInput || !dropdown) return;
@@ -30,58 +31,26 @@ function setupDropdown(type, dropdownId, selectedList) {
     });
 
     dropdown.addEventListener("click", (e) => {
+        e.stopPropagation(); // Empêche la propagation du clic
         if (e.target.tagName === "LI") {
             const value = e.target.textContent.trim();
-            if (!selectedList.includes(value)) {
-                selectedList.push(value);
-                searchInput.value = ""; // Clear the input after selection
-                dropdown.classList.remove("show");
-                updateFilters();
-                updateBadges(type, value, selectedList);
-            }
+            addTag(value); // Ajoute un tag actif
+            searchInput.value = ""; // Efface l'entrée après sélection
+            dropdown.classList.remove("show");
         }
     });
-
+    
     document.addEventListener("click", (e) => {
         if (!dropdown.contains(e.target) && e.target !== searchInput) {
             dropdown.classList.remove("show");
         }
     });
+    
 }
-/*
-function setupDropdown(type, dropdownId, selectedList) {
-    const searchInput = document.getElementById(`${type}-search`);
-    const dropdown = document.getElementById(dropdownId);
-
-    searchInput.addEventListener("focus", () => {
-        populateDropdown(type, dropdownId, searchInput);
-        toggleDropdown(dropdown, true);
-    });
-
-    searchInput.addEventListener("input", () => {
-        populateDropdown(type, dropdownId, searchInput);
-    });
-
-    dropdown.addEventListener("click", (e) => {
-        if (e.target.tagName === "LI") {
-            const value = e.target.textContent.trim();
-            if (!selectedList.includes(value)) {
-                selectedList.push(value);
-                updateFilters();
-                updateBadges(type, value, selectedList);
-            }
-        }
-    });
-
-    document.addEventListener("click", (e) => {
-        if (!dropdown.contains(e.target) && e.target !== searchInput) {
-            toggleDropdown(dropdown, false);
-        }
-    });
-}
-*/
 
 export function populateDropdown(type, dropdownId, searchInput) {
+    if (isGlobalSearchActive) return; // Ignore si la recherche globale est active
+
     const dropdown = document.getElementById(dropdownId);
     if (!dropdown) return;
     
@@ -163,12 +132,6 @@ function updateFilters() {
         selectedFilters.utensils
     );
 
-    /*
-    // Mettre à jour les dropdowns après l’application des filtres
-    populateDropdown("ingredient", "ingredient-options", document.getElementById("ingredient-search"));
-    populateDropdown("appliance", "appliance-options", document.getElementById("appliance-search"));
-    populateDropdown("utensil", "utensil-options", document.getElementById("utensil-search"));
-    */
 
     // Met à jour les recettes affichées
     displayRecipes();
@@ -182,21 +145,6 @@ function updateBadges(type, value, selectedList) {
     const badgeContainer = document.getElementById("selected-filters");
 
     if (!badgeContainer) return;
-
-    /*
-    const badge = document.createElement("div");
-    badge.className = "badge";
-    badge.innerHTML = `
-        <span>${value}</span>
-        <span class="remove" data-type="${type}" data-value="${value}">×</span>
-    `;
-    badge.querySelector(".remove").addEventListener("click", () => {
-        selectedList.splice(selectedList.indexOf(value), 1);
-        badge.remove();
-        updateFilters();
-    });
-    badgeContainer.appendChild(badge);
-    */
 
     const badge = document.createElement("div");
     badge.className = "badge";
@@ -216,3 +164,9 @@ function updateBadges(type, value, selectedList) {
     
     badgeContainer.appendChild(badge);
 }
+
+function closeAllDropdowns() {
+    const dropdowns = document.querySelectorAll(".dropdown-options");
+    dropdowns.forEach(dropdown => dropdown.classList.remove("show"));
+}
+
