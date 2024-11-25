@@ -12,11 +12,15 @@
 ### Recherche et filtres
 - [x] Vérification du comportement des filtres (ingrédients, ustensiles, appareils).
 - [x] Test de la recherche globale avec des mots-clés spécifiques.
-- [ ] Vérification de la mise à jour correcte des recettes après l'application des filtres.
+- [x] Vérification de la mise à jour correcte des recettes après l'application des filtres.
+
+### Gestion des suggestions
+- [x] Exclusion des tags actifs dans les suggestions affichées.
+- [x] Fonctionnement de l'option "Afficher plus de tags".
 
 ### Pagination
-- [ ] Vérification de la navigation entre les pages.
-- [ ] Test des transitions et animations entre les pages.
+- [x] Vérification de la navigation entre les pages.
+- [x] Test des transitions et animations entre les pages.
 
 ---
 
@@ -29,7 +33,3 @@
 ### Résilience des données
 - [ ] Gestion des données manquantes dans les recettes (image par défaut, description).
 - [ ] Vérification des comportements en cas de données corrompues ou invalides.
-
-### Gestion des suggestions
-- [ ] Exclusion des tags actifs dans les suggestions affichées.
-- [ ] Fonctionnement de l'option "Afficher plus de tags".

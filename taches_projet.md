@@ -15,26 +15,31 @@
 - [ ] Ajouter des balises `aria-label` pour tous les éléments interactifs (boutons, liens, filtres...).
 - [ ] Tester la navigation clavier pour s'assurer que toutes les fonctionnalités sont utilisables sans souris.
 
-## Ajouter des tests pour les fonctionnalités critiques
-- [x] Test du comportement des filtres et de la recherche.
-- [ ] Vérification que les recettes s'affichent correctement après un filtrage.
-
 ---
 
 # Tâches réalisées
+
+## Gestion des filtres non fonctionnels
+- [x] Correction de l'intersection des filtres (ingrédients, ustensiles, appareils).
+- [x] Ajustementdes suggestions dynamiques pour exclure les tags actifs.
+- [x] Ajout de diagnostics pour faciliter le débogage des résultats.
+
+## Ajouter des tests pour les fonctionnalités critiques
+- [x] Test du comportement des filtres et de la recherche.
+- [x] Vérification que les recettes s'affichent correctement après un filtrage.
 
 ## Implémenter un algorithme de recherche performant
 - [x] Etablir un schéma de l'algorithme de recherche :
   - Décrire les étapes de l'algorithme sus forme de diagramme clair.
   - Assurer que le schéma est compréhensible pour l'équipe backend.
-- [ ] Implémenter l'algorithme de recherche :
+- [x] Implémenter l'algorithme de recherche :
   - Recherche principal à partir de 3 caractères
   - Recherche dans les titres, descriptions et ingrédients des recettes.
   - Optimiser la recherche pour des performances rapides.
-- [ ] Gestion des champs avancés :
+- [x] Gestion des champs avancés :
   - Afficher uniquement les ingrédients, ustensiles et appareils restants après filtrage.
   - Actualiser dynamiquement les tags et suggestions.
-- [ ] Vérifier les règles de gestion de la recherche :
+- [x] Vérifier les règles de gestion de la recherche :
   - Intersection des résultats entre les tags ajoutée.
   - Recherche instantanée pour chaque caractère ajouté.
   - Gestion des résultats lorsqu'aucune recette ne correspond.

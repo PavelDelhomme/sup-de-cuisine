@@ -1,5 +1,17 @@
 # === Documentation des problèmes et solutions ===
 
+## 15. Correction de la logique de recherche et de filtres
+- *Problème* : Les résultats n'étaient pas correctement croisées entre les filtres actifs.
+- _Solution_ : Refactorisation de la logique pour vérifier l'intersection des critères.
+
+## 14. Mise à jour des suggestions dynamiques
+- *Problème* : Les suggestions (ingrédients, appareils, ustensiles) incluaient des options non liées aux recettes affichées.
+- _Solution_ : Génération des suggestions uniquement à partir des `filteredRecipes`.
+
+## 13. Ajout de diagnostics
+- *Problème* : Déboguer les résultats de recherche et les filtres était complexe.
+- _Solution_ : Ajout de logs pour les étapes intermédiaires (recherche globale, filtres appliqués).
+
 ## 12. Gestion des suggestions dynamiques
 - *Problème* : La fonction `displaySuggestions` n'excluait pas les tags actifs et ne permettait pas d'afficher tous les tags.
 - _Solution_ :
@@ -60,8 +72,12 @@
 
 # === Historique des commits ===
 
+## 15. Commits - Nov 25, 2024
+- `Correction des fitres actifs et des suggestions dynamiques` - Nov 25, 2024.
+- `Ajout de diagnostics pour le débogage des résultats` - Nov 25, 2024.
+
 ## 14. Commits - Nov 25, 2024
-- `Etablissement de l'algorithem de recherche et début d'implementation` - Nov 25, 2024
+- `Etablissement de l'algorithem de recherche et début d'implementation` - Nov 25, 2024.
 
 ## 13. Commits - Nov 25, 2024
 - `Mise à jour des fichiers de suivi : suppression d'une tâche future et réorganisation` - Nov 25, 2024.

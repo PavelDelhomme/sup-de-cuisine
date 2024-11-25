@@ -579,3 +579,20 @@ main p strong {
     flex-wrap: wrap;
     gap: 8px;
 }
+
+.show-more-tags,
+.back-to-limited-tags {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    text-align: center;
+}
+
+.show-more-tags:hover,
+.back-to-limited-tags:hover {
+    background-color: #ddd;
+}

@@ -93,3 +93,9 @@ export function displayNoResultsMessage(query = "") {
         paginationContainer.innerHTML = "";
     }
 }
+
+
+export function resetPagination() {
+    setCurrentPage(1); // Réinitialiser à la première page
+    setupPagination();
+}

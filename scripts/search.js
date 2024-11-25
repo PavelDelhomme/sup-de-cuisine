@@ -1,5 +1,5 @@
 import { allRecipes, filteredRecipes, setCurrentPage } from "./data.js";
-import { displayRecipes, displayNoResultsMessage } from "./recipes.js";
+import { displayRecipes, displayNoResultsMessage, resetPagination } from "./recipes.js";
 import { updateAdvancedSearchFields, setGlobalSearchActive } from "./filters.js";
 
 let activeTags = new Set();
@@ -10,7 +10,7 @@ export function performSearch(query = "", activeFilters = { ingredients: [], app
     filteredRecipes.length = 0;
 
     // Recherche globale
-    let globalResults = allRecipes.filter((recipe) => {
+    const globalResults = allRecipes.filter((recipe) => {
         return (
             query.length < 3 || // Si moins de 3 caractères, on affiche tout
             recipe.name.toLowerCase().includes(query.toLowerCase()) ||
@@ -22,9 +22,8 @@ export function performSearch(query = "", activeFilters = { ingredients: [], app
     });
 
     // Application des filtres avancés
-    let filteredResults = globalResults.filter((recipe) => {
+    const filteredResults = globalResults.filter((recipe) => {
         const matchesIngredients = 
-            activeFilters.ingredients.length === 0 ||
             activeFilters.ingredients.every((ing) =>
                 recipe.ingredients.som(
                     (recipeIng) => recipeIng.ingredient.toLowerCase() === ing.toLowerCase()
@@ -32,11 +31,9 @@ export function performSearch(query = "", activeFilters = { ingredients: [], app
             );
         
         const matchesAppliances =
-            activeFilters.appliances.length === 0 ||
             activeFilters.appliances.includes(recipe.appliance.toLowerCase());
         
         const matchesUtensils =
-            activeFilters.utensils.length === 0 ||
             activeFilters.utensils.every((ut) =>
                 recipe.ustensils.some((ust) => ust.toLowerCase() === ut.toLowerCase())
             );
@@ -46,6 +43,11 @@ export function performSearch(query = "", activeFilters = { ingredients: [], app
 
     // Ajouter les résultats filtrés
     filteredRecipes.push(...filteredResults);
+
+    console.log("Résultats de recherche globaux :", globalResults);
+    console.log("Résultats après filtres :", filteredRecipes);
+
+    resetPagination(); // Réinitialiser la pagination
 
     // Affichage
     if (filteredRecipes.length === 0) {
@@ -213,47 +215,34 @@ export function displaySuggestions() {
     });
 
     // Exclure les tags déjà actifs
-    //activeTags.forEach((tag) => uniqueTags.delete(tag));
     [...activeTags].forEach((tag) => uniqueTags.delete(tag));
 
     // Nettoyer l'affichage actuel des tags
     tagsContainer.innerHTML = "";
 
-    // Limitation et affichage des suggestions
-    Array.from(uniqueTags)
-        .slice(0, 10)
-        .forEach((tag) => {
-            const tagElement = document.createElement("span");
-            tagElement.className = "tag";
-            tagElement.textContent = tag;
-            tagElement.addEventListener("click", () => {
-                addTag(tag); // Ajouter le tag selectionné
-            });
-            tagsContainer.appendChild(tagElement);
-        });
+    // Limiter les tags afficher à 10
+    const limitedTags = Array.from(uniqueTags).slice(0, 10);
 
-    // Limiter le nombre de tags affichés (exemple : 10 max)
-    //const limitedTags = Array.from(uniqueTags).slice(0, 10);
-
-    /*limitedTags.forEach((tag) => {
+    limitedTags.forEach((tag) => {
         const tagElement = document.createElement("span");
         tagElement.className = "tag";
-        tagElement.innerHTML = `<span>Ajouter le tag : <strong>${tag}</strong></span>`;
+        tagElement.textContent = tag;
         tagElement.addEventListener("click", () => {
             addTag(tag);
         });
         tagsContainer.appendChild(tagElement);
     });
+    
 
     if (uniqueTags.size > 10) {
-        const moreTagElement = document.createElement("span");
-        moreTagElement.className = "tag";
-        moreTagElement.innerHTML = `<span>Afficher plus de tags...</span>`;
-        moreTagElement.addEventListener("click", () => {
+        const moreTagsButton = document.createElement("button");
+        moreTagsButton.className = "show-more-tags";
+        moreTagsButton.textContent = "Afficher plus de tags...";
+        moreTagsButton.addEventListener("click", () => {
             displayMoreTags(Array.from(uniqueTags));
         });
-        tagsContainer.appendChild(moreTagElement);
-    }*/
+        tagsContainer.appendChild(moreTagsButton);
+    }
 }
 
 
