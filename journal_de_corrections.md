@@ -77,6 +77,8 @@
 ---
 
 # === Historique des commits ===
+## 17. Commits - Nov 25, 2024
+- `Mise à jour des fichiers de suivi pour corrections et suivi des tests` - Nov 25, 2024.
 
 ## 16. Commits - Nov 26, 2024
 - `Ajout des problèmes et solutions dans 'journal_de_corrections.md` - Nov 26, 2024.
