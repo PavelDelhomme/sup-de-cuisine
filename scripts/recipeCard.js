@@ -1,6 +1,10 @@
 export function generateRecipeCard(recipe) {
     const recipeCard = document.createElement("div");
     recipeCard.className = "recipe-card-container";
+    recipeCard.setAttribute("tabindex", "0"); // Navigation au clavier
+    recipeCard.setAttribute("role", "button");
+    recipeCard.setAttribute("aria-label", `Voir les détails de la recette : ${recipe.name}`);
+
 
     const imageSection = `
         <div class="recipe-card-img">

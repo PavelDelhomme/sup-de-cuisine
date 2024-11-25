@@ -10,6 +10,10 @@
 - [ ] Ajouter une animation pour les transitions entre les pages.
 - [ ] Afficher un résumé des pages (par exemple `Page 1 sur 10`).
 
+## Renforcer l'accessibilité (a11y)
+- [ ] Tester la navigation clavier pour s'assurer que toutes les fonctionnalités sont utilisables sans souris.
+- [ ] Ajouter la navigation clavier sur les suggestions de tags.
+
 ---
 
 # Tâches réalisées
@@ -74,3 +78,6 @@
 
 ## Système de pagination
 - [x] Implémentation initiale des boutons de pagination pour parcourir les recettes.
+
+## Gestion des recettes
+- [x] Correction du problème de duplication des recettes lors du chargement initial dans `data.js`.

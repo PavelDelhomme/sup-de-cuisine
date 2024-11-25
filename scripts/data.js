@@ -22,7 +22,6 @@ export async function fetchRecipes() {
                 Array.isArray(recipe.ingredients) &&
                 recipe.ingredients.length > 0
         );
-        filteredRecipes.push(...allRecipes);
         console.log("Recettes chargées :", allRecipes.length);
     } catch (error) {
         console.error("Erreur :", error);
