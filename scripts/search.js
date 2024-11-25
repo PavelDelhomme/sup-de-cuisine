@@ -191,8 +191,6 @@ export function displaySuggestions() {
 
 function displayMoreTags(allTags) {
     const tagsContainer = document.getElementById("tags-container");
-    if (!tagsContainer) return;
-
     tagsContainer.innerHTML = "";
 
     allTags.forEach((tag) => {
@@ -204,6 +202,13 @@ function displayMoreTags(allTags) {
         });
         tagsContainer.appendChild(tagElement);
     });
+
+    // Ajout d'un bouton pour revenir à la vue limitée
+    const backButton = document.createElement("span");
+    backButton.className = "tag back";
+    backButton.innerHTML = `<span>Revenir...</span>`;
+    backButton.addEventListener("click", displaySuggestions);
+    tagsContainer.appendChild(backButton);
 }
 
 
