@@ -36,50 +36,58 @@ export function updateAdvancedSearchFields() {
         displaySuggestions();
     }
 }
-
 export function applyFilters(selectedIngredients, selectedAppliances, selectedUtensils) {
-    console.log("Filtres actifs :", selectedIngredients, selectedAppliances, selectedUtensils);
+    const currentSearchQuery = document.getElementById("search-bar").value.trim();
+    filterRecipes(currentSearchQuery, selectedIngredients, selectedAppliances, selectedUtensils);
+}
 
-    filteredRecipes.length = 0; // Réinitialisation des filtres
 
-    const currentSearchQuery = document.getElementById("search-bar")?.value?.toLowerCase() || "";
 
-    // Filtrage des recettes en combinant recherche et filtres
+export function filterRecipes(query = "", selectedIngredients = [], selectedAppliances = [], selectedUtensils = []) {
+    // Réinitialisation des recettes filtrées
+    filteredRecipes.length = 0;
+
+    const searchQuery = query.toLowerCase();
+
+    // Filtrage des recettes
     filteredRecipes.push(...allRecipes.filter(recipe => {
-        const matchesSearch = 
-            !currentSearchQuery || 
-            recipe.name.toLowerCase().includes(currentSearchQuery) ||
-            recipe.description.toLowerCase().includes(currentSearchQuery) ||
-            recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(currentSearchQuery));
+        const matchesQuery = 
+            !searchQuery ||
+            recipe.name.toLowerCase().includes(searchQuery) ||
+            recipe.description.toLowerCase().includes(searchQuery) ||
+            recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(searchQuery));
 
         const matchesIngredients = 
             !selectedIngredients.length || 
-            selectedIngredients.every(ing => 
-                recipe.ingredients.some(ri => ri.ingredient.toLowerCase() === ing.toLowerCase())
+            selectedIngredients.every(ing =>
+                recipe.ingredients.some(recipeIng => recipeIng.ingredient.toLowerCase() === ing.toLowerCase())
             );
 
         const matchesAppliances = 
-            !selectedAppliances.length || 
-            selectedAppliances.every(app => 
-                recipe.appliance.toLowerCase() === app.toLowerCase()
-            );
+            !selectedAppliances.length ||
+            selectedAppliances.some(app => recipe.appliance.toLowerCase() === app.toLowerCase());
 
         const matchesUtensils = 
-            !selectedUtensils.length || 
-            selectedUtensils.every(ut => 
+            !selectedUtensils.length ||
+            selectedUtensils.every(ut =>
                 recipe.ustensils.some(ust => ust.toLowerCase() === ut.toLowerCase())
             );
 
-        return matchesSearch && matchesIngredients && matchesAppliances && matchesUtensils;
+        return matchesQuery && matchesIngredients && matchesAppliances && matchesUtensils;
     }));
 
-    console.log("Filtres appliqués :", selectedIngredients, selectedAppliances, selectedUtensils);
-    console.log("Recettes après application des filtres :", filteredRecipes);
+    console.log("Options disponibles après filtrage (Ingrédients) :", getOptionsForType("ingredient"));
+    console.log("Options disponibles après filtrage (Appareils) :", getOptionsForType("appliance"));
+    console.log("Options disponibles après filtrage (Ustensiles) :", getOptionsForType("utensil"));
 
+
+    // Met à jour les recettes affichées
+    console.log("Recettes après filtrage combiné :", filteredRecipes);
     setCurrentPage(1);
     displayRecipes();
 
-    // Mettre à jour les dropdowns après application des filtres
+    
+    // Mettre à jour les options des dropdowns après filtrage
     populateDropdown("ingredient", "ingredient-options", document.getElementById("ingredient-search"));
     populateDropdown("appliance", "appliance-options", document.getElementById("appliance-search"));
     populateDropdown("utensil", "utensil-options", document.getElementById("utensil-search"));

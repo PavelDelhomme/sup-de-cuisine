@@ -6,20 +6,24 @@
     <title>Sup de Cuisine - Recettes</title>
     <link rel="stylesheet" href="styles/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header class="banner">
         <h1 class="banner-title">CHERCHER PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET GÉNÉREUSES</h1>
         <div class="search-container">
-            <input type="text" id="search-bar" class="search-input" placeholder="Recherchez une recette, un ingrédient, ...">
-            <i class="fa fa-search search-icon"></i>
-            <i class="fa fa-times clear-btn" id="clear-search"></i> <!-- Ajouté pour effacer -->
+            <input type="text" id="search-bar" class="search-input" 
+            placeholder="Recherchez une recette, un ingrédient, ..."
+            aria-label="Barre de recherche principale">
+            <span class="fa fa-search search-icon" aria-hidden="true"></span>
+            <button class="clear-btn" id="clear-search" aria-label="Effacer la recherche">×</button>
         </div>        
         <div id="selected-filters" class="selected-filters">
             <!-- Les tags apparaissent ici -->
         </div>
     </header>
     <section class="filter-header">
+        <h2 class="no-display">Filtres de recherche</h2>
         <div class="filter-left">
             <p id="recipe-count">Total : 0 recettes</p>
         </div>
@@ -27,8 +31,16 @@
             <div class="dropdown">
                 <label for="ingredient-search">Ingrédients</label>
                 <div class="dropdown-container">
-                    <input type="text" id="ingredient-search" class="dropdown-input" placeholder="Recherchez un ingrédient...">
-                    <ul id="ingredient-options" class="dropdown-options"></ul>
+                    <input 
+                    type="text" 
+                    id="ingredient-search"
+                    class="dropdown-input"
+                    placeholder="Recherchez un ingrédient..."
+                    aria-label="Recherchez un ingrédient"
+                    aria-expanded="false"
+                    aria-controls="ingredient-options"
+                    role="combobox">
+                    <ul id="ingredient-options" class="dropdown-options" role="listbox"></ul>
                 </div>
             </div>
             <div class="dropdown">
@@ -48,6 +60,7 @@
         </div>
     </section>
     <section id="tags-container" class="tags-container">
+        <h2 class="no-display">Tags disponibles</h2>
         <!-- Les tags s'afficheront ici -->
     </section>    
     <main>
