@@ -1,5 +1,11 @@
 # === Documentation des problèmes et solutions ===
 
+## 18. Problème de duplication des recettes lors du chargement initial
+- *Problème* : Lors du chargement initial, le tableau `filteredRecipes` contenait des duplications en raison de plusieurs initialisations.
+- _Solution_ :
+  - Modification de la fonction `fetchRecipes()` dans `data.js` pour éviter de pousser les données dans `filteredRecipes` lors du chargement initial.
+  - Initialisation unique de `filteredRecipes` dans `main.js` après le chargement des données.
+
 ## 17. Navigation clavier sur les suggestions de tags et icônes de recherche
 - *Problème* : Les suggestions de tags et l’icône de recherche n’étaient pas accessibles via le clavier.
 - _Solution_ : 
@@ -83,6 +89,11 @@
 ---
 
 # === Historique des commits ===
+## 19. Commit - Nov 26, 2024
+- `Correction du problème de duplication des recettes lors du chargement initial dans data.js`
+- `Amélioration de la gestion des cartes de recettes dans recipeCard.js`
+- `Mise à jour des fichiers de suivi : taches_projet.md, suivi-tests.md et journal_de_corrections.md`
+
 ## 18. Commits - Nov 26, 2024
 - `Ajout de 'tabindex' et de gestionnaires clavier pour les suggestions de tags et l'icône de recherche` - Nov 26, 2024.
 - `Mise à jour des fichiers de suivi : 'taches_projet.md', 'journal_de_corrections.md', et 'suivi-tests.md'` - Nov 26, 2024.

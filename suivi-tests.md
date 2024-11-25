@@ -30,15 +30,14 @@
 ### Accessibilité (a11y)
 - [x] Ajout des balises `aria-label` pour les boutons et liens.
 - [ ] Permettre la navigation clavier sur les suggestions de tags et les icônes de recherche.
-- [ ] Vérification des balises `aria-expanded`, `role`, et `aria-controls` pour les dropdowns.
-
+- [x] Vérification des balises `aria-expanded`, `role`, et `aria-controls` pour les dropdowns.
+- [ ] Confirmer que les suggestions de tags peuvent être sélectionnées avec la touche Enter.
+- [x] S'assurer que les balises ARIA sont présentes sur les cartes de recettes.
+- [x] Navigation clavier sur les recettes affichées.
 
 ---
 
 ## Tests à planifier
-
-### Accessibilité (a11y)
-- [ ] Navigation au clavier sur tous les éléments interactifs.
 
 ### Résilience des données
 - [ ] Gestion des données manquantes dans les recettes (image par défaut, description).
