@@ -1,5 +1,11 @@
 # === Documentation des problèmes et solutions ===
 
+## 17. Navigation clavier sur les suggestions de tags et icônes de recherche
+- *Problème* : Les suggestions de tags et l’icône de recherche n’étaient pas accessibles via le clavier.
+- _Solution_ : 
+  - Ajout d’attributs `tabindex="0"` sur les suggestions de tags pour permettre leur navigation clavier.
+  - Ajout d’un gestionnaire d’événements `keydown` pour capturer la touche `Enter` et déclencher la sélection d’un tag via le clavier.
+
 ## 16. Gestion des appareils incorrecte dans les dropdowns
 - *Problème* : Les appareils proposés dans le dropdown étaient incorrects après filtrage.
 - _Solution_ : 
@@ -77,8 +83,12 @@
 ---
 
 # === Historique des commits ===
-## 17. Commits - Nov 25, 2024
-- `Mise à jour des fichiers de suivi pour corrections et suivi des tests` - Nov 25, 2024.
+## 18. Commits - Nov 26, 2024
+- `Ajout de 'tabindex' et de gestionnaires clavier pour les suggestions de tags et l'icône de recherche` - Nov 26, 2024.
+- `Mise à jour des fichiers de suivi : 'taches_projet.md', 'journal_de_corrections.md', et 'suivi-tests.md'` - Nov 26, 2024.
+
+## 17. Commits - Nov 26, 2024
+- `Mise à jour des fichiers de suivi pour corrections et suivi des tests` - Nov 26, 2024.
 
 ## 16. Commits - Nov 26, 2024
 - `Ajout des problèmes et solutions dans 'journal_de_corrections.md` - Nov 26, 2024.

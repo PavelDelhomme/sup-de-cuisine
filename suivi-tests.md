@@ -29,6 +29,9 @@
 
 ### Accessibilité (a11y)
 - [x] Ajout des balises `aria-label` pour les boutons et liens.
+- [ ] Permettre la navigation clavier sur les suggestions de tags et les icônes de recherche.
+- [ ] Vérification des balises `aria-expanded`, `role`, et `aria-controls` pour les dropdowns.
+
 
 ---
 
