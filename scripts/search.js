@@ -89,9 +89,17 @@ function updateSuggestions(query, activeTags) {
         const tagElement = document.createElement("div");
         tagElement.className = "tag";
         tagElement.textContent = tag;
-        tagElement.addEventListener("click", () => {
-            addTag(tag); // Ajouter le tag en cliquant sur la suggestion
+        tagElement.setAttribute("tabindex", "0"); // Navigation clavier
+        tagElement.setAttribute("role", "button");
+        tagElement.setAttribute("aria-label", `Tag : ${tag}`);
+
+        // Gérer le clic ou la touche "Entrer" pour ajouter un tag
+        const addTagHandler = () => addTag(tag);
+        tagElement.addEventListener("click", addTagHandler);
+        tagElement.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") addTagHandler();
         });
+        
         tagsContainer.appendChild(tagElement);
     });
 }
