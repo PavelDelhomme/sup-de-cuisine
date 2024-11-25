@@ -60,6 +60,12 @@
 
 # === Historique des commits ===
 
+## 14. Commits - Nov 25, 2024
+- `Etablissement de l'algorithem de recherche et début d'implementation` - Nov 25, 2024
+
+## 13. Commits - Nov 25, 2024
+- `Mise à jour des fichiers de suivi : suppression d'une tâche future et réorganisation` - Nov 25, 2024.
+
 ## 12. Commits - Nov 25, 2024
 - `Mise à jour des fichiers de suivi du projet` - Ajout et modification des fichiers `journal_de_corrections.md`, `taches_projet.md` et création de `suivi-tests.md`.
 

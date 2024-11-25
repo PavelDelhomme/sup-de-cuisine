@@ -1,20 +1,5 @@
 # Tâches à faire
 
-## Implémenter un algorithme de recherche performant
-- [ ] Etablir un schéma de l'algorithme de recherche :
-  - Décrire les étapes de l'algorithme sus forme de diagramme clair.
-  - Assurer que le schéma est compréhensible pour l'équipe backend.
-- [ ] Implémenter l'algorithme de recherche :
-  - Recherche principal à partir de 3 caractères
-  - Recherche dans les titres, descriptions et ingrédients des recettes.
-  - Optimiser la recherche pour des performances rapides.
-- [ ] Gestion des champs avancés :
-  - Afficher uniquement les ingrédients, ustensiles et appareils restants après filtrage.
-  - Actualiser dynamiquement les tags et suggestions.
-- [ ] Vérifier les règles de gestion de la recherche :
-  - Intersection des résultats entre les tags ajoutée.
-  - Recherche instantanée pour chaque caractère ajouté.
-  - Gestion des résultats lorsqu'aucune recette ne correspond.
 
 ## Refactoriser le CSS pour les cartes
 - [ ] Adapter les styles CSS pour que les cartes affichent les informations comme dans le mockup :
@@ -37,6 +22,22 @@
 ---
 
 # Tâches réalisées
+
+## Implémenter un algorithme de recherche performant
+- [x] Etablir un schéma de l'algorithme de recherche :
+  - Décrire les étapes de l'algorithme sus forme de diagramme clair.
+  - Assurer que le schéma est compréhensible pour l'équipe backend.
+- [ ] Implémenter l'algorithme de recherche :
+  - Recherche principal à partir de 3 caractères
+  - Recherche dans les titres, descriptions et ingrédients des recettes.
+  - Optimiser la recherche pour des performances rapides.
+- [ ] Gestion des champs avancés :
+  - Afficher uniquement les ingrédients, ustensiles et appareils restants après filtrage.
+  - Actualiser dynamiquement les tags et suggestions.
+- [ ] Vérifier les règles de gestion de la recherche :
+  - Intersection des résultats entre les tags ajoutée.
+  - Recherche instantanée pour chaque caractère ajouté.
+  - Gestion des résultats lorsqu'aucune recette ne correspond.
 
 ## Amélioration de la gestion des suggestions
 - [x] Exclure les tags actifs des suggestions affichées.

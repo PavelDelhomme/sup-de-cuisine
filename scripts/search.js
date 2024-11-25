@@ -4,6 +4,60 @@ import { updateAdvancedSearchFields, setGlobalSearchActive } from "./filters.js"
 
 let activeTags = new Set();
 
+// Méthode centrale pour gérer la recherche
+export function performSearch(query = "", activeFilters = { ingredients: [], appliances: [], utensils: []}) {
+    // Réinitialisation des recettes filtrées
+    filteredRecipes.length = 0;
+
+    // Recherche globale
+    let globalResults = allRecipes.filter((recipe) => {
+        return (
+            query.length < 3 || // Si moins de 3 caractères, on affiche tout
+            recipe.name.toLowerCase().includes(query.toLowerCase()) ||
+            recipe.description.toLowerCase().includes(query.toLowerCase()) ||
+            recipe.ingredients.some((ing) =>
+                ing.ingredient.toLowerCase().includes(query.toLowerCase())
+            )
+        );
+    });
+
+    // Application des filtres avancés
+    let filteredResults = globalResults.filter((recipe) => {
+        const matchesIngredients = 
+            activeFilters.ingredients.length === 0 ||
+            activeFilters.ingredients.every((ing) =>
+                recipe.ingredients.som(
+                    (recipeIng) => recipeIng.ingredient.toLowerCase() === ing.toLowerCase()
+                )
+            );
+        
+        const matchesAppliances =
+            activeFilters.appliances.length === 0 ||
+            activeFilters.appliances.includes(recipe.appliance.toLowerCase());
+        
+        const matchesUtensils =
+            activeFilters.utensils.length === 0 ||
+            activeFilters.utensils.every((ut) =>
+                recipe.ustensils.some((ust) => ust.toLowerCase() === ut.toLowerCase())
+            );
+        
+        return matchesIngredients && matchesAppliances && matchesUtensils;
+    });
+
+    // Ajouter les résultats filtrés
+    filteredRecipes.push(...filteredResults);
+
+    // Affichage
+    if (filteredRecipes.length === 0) {
+        displayNoResultsMessage(query);
+    } else {
+        displayRecipes();
+    }
+
+    // Suggestion basées sur les résultats
+    displaySuggestions();
+}
+
 
 export function setupGlobalSearch() {
     const searchInput = document.getElementById("search-bar");
@@ -159,15 +213,29 @@ export function displaySuggestions() {
     });
 
     // Exclure les tags déjà actifs
-    activeTags.forEach((tag) => uniqueTags.delete(tag));
+    //activeTags.forEach((tag) => uniqueTags.delete(tag));
+    [...activeTags].forEach((tag) => uniqueTags.delete(tag));
 
     // Nettoyer l'affichage actuel des tags
     tagsContainer.innerHTML = "";
 
-    // Limiter le nombre de tags affichés (exemple : 10 max)
-    const limitedTags = Array.from(uniqueTags).slice(0, 10);
+    // Limitation et affichage des suggestions
+    Array.from(uniqueTags)
+        .slice(0, 10)
+        .forEach((tag) => {
+            const tagElement = document.createElement("span");
+            tagElement.className = "tag";
+            tagElement.textContent = tag;
+            tagElement.addEventListener("click", () => {
+                addTag(tag); // Ajouter le tag selectionné
+            });
+            tagsContainer.appendChild(tagElement);
+        });
 
-    limitedTags.forEach((tag) => {
+    // Limiter le nombre de tags affichés (exemple : 10 max)
+    //const limitedTags = Array.from(uniqueTags).slice(0, 10);
+
+    /*limitedTags.forEach((tag) => {
         const tagElement = document.createElement("span");
         tagElement.className = "tag";
         tagElement.innerHTML = `<span>Ajouter le tag : <strong>${tag}</strong></span>`;
@@ -185,7 +253,7 @@ export function displaySuggestions() {
             displayMoreTags(Array.from(uniqueTags));
         });
         tagsContainer.appendChild(moreTagElement);
-    }
+    }*/
 }
 
 

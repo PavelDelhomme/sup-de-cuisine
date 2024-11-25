@@ -10,7 +10,31 @@ Ce projet consiste à créer un site web inspiré de plateforme tel que Marmiton
 - **Interface responsive** : Adaptée à tous les apareils.
 - **Pagination** : Navigation fluide entre les pages de résultats.
 
+---
 
+## Algorithme de recherche
+
+L'algorithme de recherche a été conçu pour répondre aux besoins d'une recherche performante et rapide : 
+
+1. **Saisir utilisateur** :
+    - Dès que l'utilisateur entre au moins 3 caractères dans la barre de recherche, une recherche est déclenchée.
+    - Les résultats sont filtrés en temps réel dans :
+        - Le titre des recetttes.
+        - La description des recettes.
+        - Les ingrédients associés aux recettes.
+
+2. **Filtres avancées** :
+    - Des options pour filtrer par ingrédients, ustensiles et appareils sont disponibles.
+    - Les filtres sont appliqués de manière cumulative (intersection des résultats).
+
+3. **Gestion des résultats** :
+    - Si aucune recette ne correspond, un message clair est affiché.
+    - Sinon, les recettes filtrées sont affichées, et les suggestions avancées sont mises à jour.
+
+### Diagramme de l'algorithme
+Voici une représentation visuelle de l'algorithme utilisé :
+
+![Diagramme de l'algorithme](algo_recherche.png)
 
 ## Configuration locale avec Docker
 ### Prérequis
