@@ -18,9 +18,17 @@
 - [x] Exclusion des tags actifs dans les suggestions affichées.
 - [x] Fonctionnement de l'option "Afficher plus de tags".
 
+### Dropdowns dynamiques
+- [x] Vérification que les appareils affichés dans le dropdown sont valides après application de filtres.
+- [x] Test de la sélection d'un appareil et du recalcul des recettes correspondantes.
+
+
 ### Pagination
 - [x] Vérification de la navigation entre les pages.
 - [x] Test des transitions et animations entre les pages.
+
+### Accessibilité (a11y)
+- [x] Ajout des balises `aria-label` pour les boutons et liens.
 
 ---
 
@@ -28,7 +36,6 @@
 
 ### Accessibilité (a11y)
 - [ ] Navigation au clavier sur tous les éléments interactifs.
-- [ ] Ajout des balises `aria-label` pour les boutons et liens.
 
 ### Résilience des données
 - [ ] Gestion des données manquantes dans les recettes (image par défaut, description).

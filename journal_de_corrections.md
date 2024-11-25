@@ -1,5 +1,11 @@
 # === Documentation des problèmes et solutions ===
 
+## 16. Gestion des appareils incorrecte dans les dropdowns
+- *Problème* : Les appareils proposés dans le dropdown étaient incorrects après filtrage.
+- _Solution_ : 
+  - Refactorisation de `populateDropdown` pour n'afficher que les appareils valides selon les `filteredRecipes`.
+  - Ajout de vérifications dans `getOptionsForType` pour s'assurer que les options proposées correspondent aux résultats filtrés.
+
 ## 15. Correction de la logique de recherche et de filtres
 - *Problème* : Les résultats n'étaient pas correctement croisées entre les filtres actifs.
 - _Solution_ : Refactorisation de la logique pour vérifier l'intersection des critères.
@@ -71,6 +77,11 @@
 ---
 
 # === Historique des commits ===
+
+## 16. Commits - Nov 26, 2024
+- `Ajout des problèmes et solutions dans 'journal_de_corrections.md` - Nov 26, 2024.
+- `Mise a jour de soucis lors de la recherche global et des filtre ainsi que la combinaison avec des tags` - Nov 26, 2024.
+- `Complétion du suivi des tests dans 'suivi-tests.md'` - Nov 26, 2024.
 
 ## 15. Commits - Nov 25, 2024
 - `Correction des fitres actifs et des suggestions dynamiques` - Nov 25, 2024.

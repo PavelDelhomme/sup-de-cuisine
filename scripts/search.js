@@ -5,60 +5,18 @@ import { updateAdvancedSearchFields, setGlobalSearchActive } from "./filters.js"
 let activeTags = new Set();
 
 // Méthode centrale pour gérer la recherche
-export function performSearch(query = "", activeFilters = { ingredients: [], appliances: [], utensils: []}) {
-    // Réinitialisation des recettes filtrées
-    filteredRecipes.length = 0;
+export function performSearch(query = "") {
+    const selectedFilters = {
+        ingredients: Array.from(activeTags).filter(tag => tag.type === "ingredient"),
+        appliances: Array.from(activeTags).filter(tag => tag.type === "appliance"),
+        utensils: Array.from(activeTags).filter(tag => tag.type === "utensil"),
+    };
 
-    // Recherche globale
-    const globalResults = allRecipes.filter((recipe) => {
-        return (
-            query.length < 3 || // Si moins de 3 caractères, on affiche tout
-            recipe.name.toLowerCase().includes(query.toLowerCase()) ||
-            recipe.description.toLowerCase().includes(query.toLowerCase()) ||
-            recipe.ingredients.some((ing) =>
-                ing.ingredient.toLowerCase().includes(query.toLowerCase())
-            )
-        );
-    });
+    console.log("Requête :", query, "Filtres actifs :", selectedFilters);
 
-    // Application des filtres avancés
-    const filteredResults = globalResults.filter((recipe) => {
-        const matchesIngredients = 
-            activeFilters.ingredients.every((ing) =>
-                recipe.ingredients.som(
-                    (recipeIng) => recipeIng.ingredient.toLowerCase() === ing.toLowerCase()
-                )
-            );
-        
-        const matchesAppliances =
-            activeFilters.appliances.includes(recipe.appliance.toLowerCase());
-        
-        const matchesUtensils =
-            activeFilters.utensils.every((ut) =>
-                recipe.ustensils.some((ust) => ust.toLowerCase() === ut.toLowerCase())
-            );
-        
-        return matchesIngredients && matchesAppliances && matchesUtensils;
-    });
-
-    // Ajouter les résultats filtrés
-    filteredRecipes.push(...filteredResults);
-
-    console.log("Résultats de recherche globaux :", globalResults);
-    console.log("Résultats après filtres :", filteredRecipes);
-
-    resetPagination(); // Réinitialiser la pagination
-
-    // Affichage
-    if (filteredRecipes.length === 0) {
-        displayNoResultsMessage(query);
-    } else {
-        displayRecipes();
-    }
-
-    // Suggestion basées sur les résultats
-    displaySuggestions();
+    filterRecipes(query, selectedFilters.ingredients, selectedFilters.appliances, selectedFilters.utensils);
 }
+
 
 
 export function setupGlobalSearch() {

@@ -21,6 +21,11 @@ function setupDropdown(type, dropdownId) {
     const dropdown = document.getElementById(dropdownId);
     if (!searchInput || !dropdown) return;
 
+    // Ajout des attributs ARIA
+    dropdown.setAttribute("role", "listbox");
+    dropdown.setAttribute("aria-labelledby", `${type}-search`);
+    searchInput.setAttribute("aria-controls", dropdownId);
+
     searchInput.addEventListener("focus", () => {
         populateDropdown(type, dropdownId, searchInput);
         dropdown.classList.add("show");
@@ -34,6 +39,12 @@ function setupDropdown(type, dropdownId) {
         e.stopPropagation(); // Empêche la propagation du clic
         if (e.target.tagName === "LI") {
             const value = e.target.textContent.trim();
+            
+            // Marquer l'option sélectionnée
+            const options = dropdown.querySelectorAll("li");
+            options.forEach(option => option.setAttribute("aria-selected", "false"));
+            e.target.setAttribute("aria-selected", "true");
+
             addTag(value); // Ajoute un tag actif
             searchInput.value = ""; // Efface l'entrée après sélection
             dropdown.classList.remove("show");
@@ -58,7 +69,23 @@ export function populateDropdown(type, dropdownId, searchInput) {
     const searchValue = searchInput.value ? searchInput.value.toLowerCase() : "";
     
     const options = getOptionsForType(type)
-        .filter(option => option && typeof option === 'string' && option.toLowerCase().includes(searchValue));
+    .filter(option => option && typeof option === 'string' && option.toLowerCase().includes(searchValue))
+    .filter(option => {
+        // Vérifie qu'au moins une recette correspond à cette option
+        if (type === "ingredient") {
+            return filteredRecipes.some(recipe => 
+                recipe.ingredients.some(ing => ing.ingredient.toLowerCase() === option.toLowerCase())
+            );
+        } else if (type === "appliance") {
+            return filteredRecipes.some(recipe => recipe.appliance.toLowerCase() === option.toLowerCase());
+        } else if (type === "utensil") {
+            return filteredRecipes.some(recipe => 
+                recipe.ustensils.some(ust => ust.toLowerCase() === option.toLowerCase())
+            );
+        }
+        return false;
+    });
+
 
     console.log(`Options pour ${type} après filtrage :`, options);
 
@@ -71,6 +98,8 @@ export function populateDropdown(type, dropdownId, searchInput) {
         const li = document.createElement("li");
         li.textContent = option;
         li.classList.add("dropdown-option");
+        li.setAttribute("role", "option");
+        li.setAttribute("aria-selected", "false");
         dropdown.appendChild(li);
     });
 
@@ -84,24 +113,24 @@ function getOptionsForType(type) {
     switch (type) {
         case "ingredient":
             return [...new Set(
-                filteredRecipes.flatMap((recipe) => 
+                filteredRecipes.flatMap(recipe => 
                     recipe.ingredients
-                        .filter((ing) => ing && ing.ingredient) // Vérifie la validité de `ingredient`
-                        .map((ing) => ing.ingredient.toLowerCase())
+                        .filter(ing => ing && ing.ingredient)
+                        .map(ing => ing.ingredient.toLowerCase())
                 )
             )];
         case "appliance":
             return [...new Set(
                 filteredRecipes
-                    .filter((recipe) => recipe && recipe.appliance) // Vérifie la validité de `appliance`
-                    .map((recipe) => recipe.appliance.toLowerCase())
+                    .filter(recipe => recipe && recipe.appliance)
+                    .map(recipe => recipe.appliance.toLowerCase())
             )];
         case "utensil":
             return [...new Set(
-                filteredRecipes.flatMap((recipe) => 
+                filteredRecipes.flatMap(recipe => 
                     recipe.ustensils
-                        .filter((ust) => ust) // Vérifie la validité de `ustensils`
-                        .map((ust) => ust.toLowerCase())
+                        .filter(ust => ust)
+                        .map(ust => ust.toLowerCase())
                 )
             )];
         default:
