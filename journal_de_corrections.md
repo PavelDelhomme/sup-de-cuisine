@@ -1,5 +1,13 @@
 # === Documentation des problèmes et solutions ===
 
+## 12. Gestion des suggestions dynamiques
+- *Problème* : La fonction `displaySuggestions` n'excluait pas les tags actifs et ne permettait pas d'afficher tous les tags.
+- _Solution_ :
+  - Ajout d'une logique pour exclure les tags actifs.
+  - Limitation des suggestions initiales à 10 tags maximum.
+  - Ajout d'une option "Afficher plus de tags" pour naviguer vers tous les tags disponibles.
+  - Ajout d'un bouton "Revenir" pour revenir à la vue limitée.
+
 ## 11. Recherche et filtres améliorés
 - *Problème* : Les recherches globales n’étaient pas normalisées, et les dropdowns s’ouvraient après chaque mise à jour.
 - _Solution_ : 
@@ -51,6 +59,12 @@
 ---
 
 # === Historique des commits ===
+
+## 12. Commits - Nov 25, 2024
+- `Mise à jour des fichiers de suivi du projet` - Ajout et modification des fichiers `journal_de_corrections.md`, `taches_projet.md` et création de `suivi-tests.md`.
+
+## 11. Commits - Nov 25, 2024
+- `Amélioration de la fonction displaySuggestions et gestion dynamique des tags` - Nov 25, 2024.
 
 ## 10. Commits - Nov 21, 2024
 - `Gestion des données manquantes pour les cartes de recettes`.
