@@ -1,13 +1,14 @@
-import { fetchRecipes } from "./data.js";
+import { allRecipes, fetchRecipes, filteredRecipes } from "./data.js";
 import { displayRecipes } from "./recipes.js";
 import { setupGlobalSearch, displaySuggestions } from "./search.js";
 import { setupDropdowns } from "./dropdowns.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await fetchRecipes();
-    setupGlobalSearch();
-    setupDropdowns();
+    await fetchRecipes(); // Charge les recettes
+    setupGlobalSearch(); // Configure la barre de recherce
+    setupDropdowns(); // Configurer les filtres
     // displayTags();
-    displayRecipes();
-    displaySuggestions(); // Basé sur toutes les recettes initiales
+    filteredRecipes.push(...allRecipes); // Initialise les recettes filtrées
+    displayRecipes(); // Affiche les recettes
+    displaySuggestions(); // Basé sur toutes les recettes initiales affihe les suggestions
 });

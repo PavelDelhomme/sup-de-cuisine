@@ -75,24 +75,44 @@ function updateSuggestions(query, activeTags) {
     });
 }
 
-function handleSearch(query, activeTags) {
+export function handleSearch(query = "", activeTags = new Set()) {
+    console.log("Requête de recherche :", query);
+    console.log("Tags actifs :", Array.from(activeTags));
+    console.log("Recettes initiales :", allRecipes);
+
     filteredRecipes.length = 0;
-    filteredRecipes.push(...allRecipes.filter(recipe => {
-        const matchesQuery = !query || 
-            recipe.name.toLowerCase().includes(query.toLowerCase()) ||
-            recipe.description.toLowerCase().includes(query.toLowerCase());
-        
-        const matchesTags = Array.from(activeTags).every(tag =>
-            recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(tag.toLowerCase())) ||
-            recipe.appliance.toLowerCase().includes(tag.toLowerCase()) ||
-            recipe.ustensils.some(u => u.toLowerCase().includes(tag.toLowerCase()))
-        );
-        
-        return matchesQuery && matchesTags;
-    }));
-    
-    displayRecipes();
-    updateAdvancedSearchFields();
+
+    filteredRecipes.push(
+        ...allRecipes.filter((recipe) => {
+            const matchesQuery =
+                query === "" ||
+                recipe.name?.toLowerCase().includes(query) || // Vérification du titre
+                recipe.description?.toLowerCase().includes(query.toLowerCase()) || // Vérifie la description
+                recipe.ingredients.some((ing) =>
+                    ing.ingredient && ing.ingredient.toLowerCase().includes(query)
+                );
+
+            const matchesTags = Array.from(activeTags).every((tag) => {
+                return (
+                    recipe.name?.toLowerCase().includes(tag.toLowerCase()) ||
+                    recipe.description?.toLowerCase().includes(tag.toLowerCase()) ||
+                    recipe.ingredients?.some((ing) =>
+                        ing.ingredient && ing.ingredient.toLowerCase().includes(tag.toLowerCase())
+                    )
+                );
+            });
+
+            return matchesQuery && matchesTags;
+        })
+    );
+    console.log("Recettes après filtrage :", filteredRecipes);
+
+    if (filteredRecipes.length === 0) {
+        displayNoResultsMessage(query);
+    } else {
+        displayRecipes();
+        updateAdvancedSearchFields();
+    }
 }
 
 
@@ -304,4 +324,17 @@ function filterByTag(tag) {
 
     // Actualiser les champs de recherche avancée
     updateAdvancedSearchFields(results);
+}
+
+export function getAllSuggestions() {
+    const allTags = new Set();
+
+    // Ajoutez les ingrédients
+    allRecipes.forEach((recipe) => {
+        recipe.ingredients.forEach((ing) => allTags.add(ing.ingredient.toLowerCase()));
+        allTags.add(recipe.appliance.toLowerCase());
+        recipe.ustensils.forEach((ust) => allTags.add(ust.toLowerCase()));
+    });
+
+    return Array.from(allTags);
 }

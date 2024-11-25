@@ -2,6 +2,7 @@
 import { applyFilters } from "./filters.js";
 import { filteredRecipes } from "./data.js";
 import { displayRecipes } from "./recipes.js";
+import { handleSearch } from "./search.js";
 
 const selectedFilters = {
     ingredients: [],
@@ -140,9 +141,6 @@ function getOptionsForType(type) {
 }
 
 
-function toggleDropdown(dropdown, show) {
-    dropdown.style.display = show ? "block" : "none";
-}
 
 function filterDropdownOptions(query, dropdown) {
     const items = dropdown.querySelectorAll("li");
@@ -183,21 +181,6 @@ function updateBadges(type, value, selectedList) {
 
     if (!badgeContainer) return;
 
-    /*
-    const badge = document.createElement("div");
-    badge.className = "badge";
-    badge.innerHTML = `
-        <span>${value}</span>
-        <span class="remove" data-type="${type}" data-value="${value}">×</span>
-    `;
-    badge.querySelector(".remove").addEventListener("click", () => {
-        selectedList.splice(selectedList.indexOf(value), 1);
-        badge.remove();
-        updateFilters();
-    });
-    badgeContainer.appendChild(badge);
-    */
-
     const badge = document.createElement("div");
     badge.className = "badge";
     badge.innerHTML = `
@@ -210,7 +193,9 @@ function updateBadges(type, value, selectedList) {
         if (index > -1) {
             selectedList.splice(index, 1);
             badge.remove();
-            updateFilters();
+            const currentQuery = document.getElementById("search-bar").value.trim();
+            handleSearch(currentQuery, new Set([...selectedFilters.ingredients, ...selectedFilters.appliances, ...selectedFilters.utensils]));
+            //updateFilters();
         }
     });
     

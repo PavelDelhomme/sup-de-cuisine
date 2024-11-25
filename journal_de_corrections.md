@@ -1,5 +1,13 @@
 # === Documentation des problèmes et solutions ===
 
+## 11. Recherche et filtres améliorés
+- *Problème* : Les recherches globales n’étaient pas normalisées, et les dropdowns s’ouvraient après chaque mise à jour.
+- _Solution_ : 
+  - Normalisation des entrées utilisateur (minuscules, suppression des espaces).
+  - Mise à jour des dropdowns sans les ouvrir.
+  - Ajout d'un bouton pour effacer la recherche globale tout en conservant les filtres appliqués.
+  - Résolution du problème nécessitant deux clics pour appliquer un filtre.
+
 ## 10. Gestion des données manquantes dans les cartes
 - *Problème* : Certaines recettes manquent de données comme des images ou des descriptions.
 - _Solution_ : Ajout d'une vérification conditionnelle pour remplacer les données manquantes par des valeurs par défaut (exemple : image générique, message "Description non disponible").

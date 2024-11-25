@@ -2,6 +2,8 @@
 import { allRecipes, filteredRecipes, setCurrentPage } from "./data.js";
 import { displayRecipes } from "./recipes.js";
 import { displaySuggestions } from "./search.js";
+import { populateDropdown } from "./dropdowns.js";
+
 
 export function updateAdvancedSearchFields() {
     if (!filteredRecipes || filteredRecipes.length === 0) {
@@ -28,6 +30,8 @@ export function updateAdvancedSearchFields() {
 }
 
 export function applyFilters(selectedIngredients, selectedAppliances, selectedUtensils) {
+    console.log("Filtres actifs :", selectedIngredients, selectedAppliances, selectedUtensils);
+
     filteredRecipes.length = 0;
     const currentSearchQuery = document.getElementById("search-bar")?.value?.toLowerCase() || "";
 
@@ -61,6 +65,8 @@ export function applyFilters(selectedIngredients, selectedAppliances, selectedUt
             main.innerHTML = `<p>Aucune recette ne correspond à vos critères de recherche.</p>`;
         }
     }
+    console.log("Filtres appliqués :", selectedIngredients, selectedAppliances, selectedUtensils);
+    console.log("Recettes après filtrage :", filteredRecipes);
 
     setCurrentPage(1);
     displayRecipes();

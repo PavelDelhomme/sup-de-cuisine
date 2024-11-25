@@ -14,6 +14,14 @@ export async function fetchRecipes() {
         const response = await fetch(JSON_URL);
         if (!response.ok) throw new Error("Erreur lors du chargement des recettes.");
         allRecipes = await response.json();
+        // Filtrez les recettes avec des données valides uniquement
+        allRecipes = allRecipes.filter(
+            (recipe) =>
+                recipe.name &&
+                recipe.description &&
+                Array.isArray(recipe.ingredients) &&
+                recipe.ingredients.length > 0
+        );
         filteredRecipes.push(...allRecipes);
         console.log("Recettes chargées :", allRecipes.length);
     } catch (error) {
