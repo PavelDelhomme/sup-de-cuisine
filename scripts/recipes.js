@@ -69,3 +69,27 @@ function setupPagination() {
         }
     }
 }
+
+
+export function displayNoResultsMessage(query = "") {
+    const main = document.querySelector("main");
+    const paginationContainer = document.querySelector(".pagination");
+
+    // Réinitialiser le contenu principal
+    main.innerHTML = "";
+
+    // Afficher un message d'erreur
+    main.innerHTML = `
+        <p>
+            ${query 
+                ? `Aucune recette ne correspond à votre recherche pour "<strong>${query}</strong>".`
+                : "Aucune recette ne correspond à vos critères de recherche."
+            }
+        </p>
+    `;
+
+    // Cacher la pagination
+    if (paginationContainer) {
+        paginationContainer.innerHTML = "";
+    }
+}

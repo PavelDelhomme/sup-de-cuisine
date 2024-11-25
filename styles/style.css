@@ -503,8 +503,9 @@ body {
     cursor: pointer;
     display: none;
 }
-.search-container .clear-btn:hover {
-    color: #333;
+
+.search-container .clear-btn.visible {
+    display: inline;
 }
 
 

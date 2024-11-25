@@ -7,6 +7,9 @@ import { populateDropdown } from "./dropdowns.js";
 
 export let isGlobalSearchActive = false;
 
+export function setGlobalSearchActive(status) {
+    isGlobalSearchActive = status;
+}
 
 export function updateAdvancedSearchFields() {
     if (isGlobalSearchActive) return;
@@ -37,26 +40,32 @@ export function updateAdvancedSearchFields() {
 export function applyFilters(selectedIngredients, selectedAppliances, selectedUtensils) {
     console.log("Filtres actifs :", selectedIngredients, selectedAppliances, selectedUtensils);
 
-    filteredRecipes.length = 0;
+    filteredRecipes.length = 0; // Réinitialisation des filtres
+
     const currentSearchQuery = document.getElementById("search-bar")?.value?.toLowerCase() || "";
 
+    // Filtrage des recettes en combinant recherche et filtres
     filteredRecipes.push(...allRecipes.filter(recipe => {
-        const matchesSearch = !currentSearchQuery || 
+        const matchesSearch = 
+            !currentSearchQuery || 
             recipe.name.toLowerCase().includes(currentSearchQuery) ||
             recipe.description.toLowerCase().includes(currentSearchQuery) ||
             recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(currentSearchQuery));
 
-        const matchesIngredients = !selectedIngredients.length || 
+        const matchesIngredients = 
+            !selectedIngredients.length || 
             selectedIngredients.every(ing => 
                 recipe.ingredients.some(ri => ri.ingredient.toLowerCase() === ing.toLowerCase())
             );
 
-        const matchesAppliances = !selectedAppliances.length || 
+        const matchesAppliances = 
+            !selectedAppliances.length || 
             selectedAppliances.every(app => 
                 recipe.appliance.toLowerCase() === app.toLowerCase()
             );
 
-        const matchesUtensils = !selectedUtensils.length || 
+        const matchesUtensils = 
+            !selectedUtensils.length || 
             selectedUtensils.every(ut => 
                 recipe.ustensils.some(ust => ust.toLowerCase() === ut.toLowerCase())
             );
@@ -64,16 +73,14 @@ export function applyFilters(selectedIngredients, selectedAppliances, selectedUt
         return matchesSearch && matchesIngredients && matchesAppliances && matchesUtensils;
     }));
 
-    if (filteredRecipes.length === 0) {
-        const main = document.querySelector("main");
-        if (main) {
-            main.innerHTML = `<p>Aucune recette ne correspond à vos critères de recherche.</p>`;
-        }
-    }
     console.log("Filtres appliqués :", selectedIngredients, selectedAppliances, selectedUtensils);
-    console.log("Recettes après filtrage :", filteredRecipes);
+    console.log("Recettes après application des filtres :", filteredRecipes);
 
     setCurrentPage(1);
     displayRecipes();
-    updateAdvancedSearchFields();
+
+    // Mettre à jour les dropdowns après application des filtres
+    populateDropdown("ingredient", "ingredient-options", document.getElementById("ingredient-search"));
+    populateDropdown("appliance", "appliance-options", document.getElementById("appliance-search"));
+    populateDropdown("utensil", "utensil-options", document.getElementById("utensil-search"));
 }

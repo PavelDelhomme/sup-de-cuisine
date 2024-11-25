@@ -2,7 +2,7 @@
 import { isGlobalSearchActive } from "./filters.js";
 import { filteredRecipes } from "./data.js";
 import { displayRecipes } from "./recipes.js";
-import { handleSearch } from "./search.js";
+import { handleSearch, addTag } from "./search.js";
 
 const selectedFilters = {
     ingredients: [],
@@ -86,21 +86,22 @@ function getOptionsForType(type) {
             return [...new Set(
                 filteredRecipes.flatMap((recipe) => 
                     recipe.ingredients
-                        .filter((ing) => ing && ing.ingredient) // Vérifie l’existence de `ing` et `ing.ingredient`
-                        .map((ing) => ing.ingredient)
+                        .filter((ing) => ing && ing.ingredient) // Vérifie la validité de `ingredient`
+                        .map((ing) => ing.ingredient.toLowerCase())
                 )
             )];
         case "appliance":
             return [...new Set(
                 filteredRecipes
-                    .filter((recipe) => recipe && recipe.appliance) // Vérifie l’existence de `recipe` et `recipe.appliance`
-                    .map((recipe) => recipe.appliance)
+                    .filter((recipe) => recipe && recipe.appliance) // Vérifie la validité de `appliance`
+                    .map((recipe) => recipe.appliance.toLowerCase())
             )];
         case "utensil":
             return [...new Set(
                 filteredRecipes.flatMap((recipe) => 
                     recipe.ustensils
-                        .filter((ust) => ust) // Vérifie l’existence de `ust`
+                        .filter((ust) => ust) // Vérifie la validité de `ustensils`
+                        .map((ust) => ust.toLowerCase())
                 )
             )];
         default:
@@ -129,17 +130,8 @@ function updateFilters() {
         selectedFilters.utensils
     );
 
-    /*
-    // Mettre à jour les dropdowns après l’application des filtres
-    populateDropdown("ingredient", "ingredient-options", document.getElementById("ingredient-search"));
-    populateDropdown("appliance", "appliance-options", document.getElementById("appliance-search"));
-    populateDropdown("utensil", "utensil-options", document.getElementById("utensil-search"));
-    */
-
     // Met à jour les recettes affichées
     displayRecipes();
-    // Actualise les suggestions après chaque mise à jour
-    //displaySuggestions();
 }
 
 
@@ -168,4 +160,10 @@ function updateBadges(type, value, selectedList) {
     });
     
     badgeContainer.appendChild(badge);
+}
+
+
+export function closeAllDropdowns() {
+    const dropdowns = document.querySelectorAll(".dropdown-options");
+    dropdowns.forEach((dropdown) => dropdown.classList.remove("show"));
 }
