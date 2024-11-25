@@ -3,11 +3,11 @@
 ## Composant pour générer les cartes de recettes
 - [x] Implémenter un composant JavaScript modulaire pour générer les cartes de recettes avec un alignement sur la gauche.
 - [x] Utiliser la mise en page du mockup fourni pour organiser les éléments (titre, description, ingrédients) à gauche.
-- [ ] Ajouter une gestion pour les données manquantes ou vides (absence d'image ou de description par ex).
+- [x] Ajouter une gestion pour les données manquantes ou vides (absence d'image ou de description par ex).
 
 ## Mettre à jour la fonction `displayRecipes()`
 - [x] Utiliser le nouveau composant de cartes pour remplacer le code HTML existant.
-- [ ] Optimiser la gestion de recettes affichées pour éviter les duplications.
+- [x] Optimiser la gestion de recettes affichées pour éviter les duplications.
 
 ## Refactoriser le CSS pour les cartes
 - [ ] Adapter les styles CSS pour que les cartes affichent les informations comme dans le mockup :
@@ -24,7 +24,7 @@
 - [ ] Tester la navigation clavier pour s'assurer que toutes les fonctionnalités sont utilisables sans souris.
 
 ## Ajouter des tests pour les fonctionnalités critiques
-- [ ] Test du comportement des filtres et de la recherche.
+- [x] Test du comportement des filtres et de la recherche.
 - [ ] Vérification que les recettes s'affichent correctement après un filtrage.
 
 ---
@@ -42,6 +42,7 @@
 ## Gestion des filtres (Dropdowns)
 - [x] Affichage dynamique des ingrédients, appareils et ustensiles.
 - [x] Création de badges pour visualiser les filtres actifs.
+- [x] Correction du problème de double clic pour appliquer un filtre.
 
 ## Système de pagination
 - [x] Implémentation initiale des boutons de pagination pour parcourir les recettes.

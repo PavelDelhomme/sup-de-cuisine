@@ -41,6 +41,7 @@ export function displayRecipes() {
 
     // Mise en place de la pagination
     setupPagination();
+    console.log("Recettes affichées :", filteredRecipes);
 }
 
 function setupPagination() {

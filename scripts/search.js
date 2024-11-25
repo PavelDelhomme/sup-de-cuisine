@@ -75,39 +75,48 @@ function updateSuggestions(query, activeTags) {
 }
 
 
-function handleSearch(query, activeTags) {
+export function handleSearch(query = "", activeTags = new Set()) {
+    console.log("Requête de recherche :", query);
+    console.log("Tags actifs :", Array.from(activeTags));
+    console.log("Recettes initiales :", allRecipes);
+
     filteredRecipes.length = 0;
 
     filteredRecipes.push(
         ...allRecipes.filter((recipe) => {
             const matchesQuery =
-                !query ||
-                recipe.name.toLowerCase().includes(query.toLowerCase()) ||
-                recipe.description.toLowerCase().includes(query.toLowerCase()) ||
+                query === "" ||
+                recipe.name?.toLowerCase().includes(query) || // Vérification du titre
+                recipe.description?.toLowerCase().includes(query.toLowerCase()) || // Vérifie la description
                 recipe.ingredients.some((ing) =>
-                    ing.ingredient.toLowerCase().includes(query.toLowerCase())
+                    ing.ingredient && ing.ingredient.toLowerCase().includes(query)
                 );
 
-            const matchesTags = Array.from(activeTags).every((tag) =>
-                recipe.ingredients.some((ing) => ing.ingredient.toLowerCase() === tag) ||
-                recipe.appliance.toLowerCase() === tag ||
-                recipe.ustensils.some((ust) => ust.toLowerCase() === tag)
-            );
+            const matchesTags = Array.from(activeTags).every((tag) => {
+                return (
+                    recipe.name?.toLowerCase().includes(tag.toLowerCase()) ||
+                    recipe.description?.toLowerCase().includes(tag.toLowerCase()) ||
+                    recipe.ingredients?.some((ing) =>
+                        ing.ingredient && ing.ingredient.toLowerCase().includes(tag.toLowerCase())
+                    )
+                );
+            });
 
             return matchesQuery && matchesTags; // Combine recherche et tags
         })
     );
 
+    console.log("Recettes après filtrage :", filteredRecipes);
+
     if (filteredRecipes.length === 0) {
-        const main = document.querySelector("main");
-        main.innerHTML = `<p>Aucune recette ne correspond à votre recherche ou à vos tags.</p>`;
+        displayNoResultsMessage(query);
     } else {
         displayRecipes(); // Met à jour les recettes affichées
+        updateAdvancedSearchFields(filteredRecipes); // Met à jour les champs de recherche avancée
     }
-
-    updateAdvancedSearchFields(filteredRecipes); // Met à jour les champs de recherche avancée
     displaySuggestions(); // Met à jour les suggestions de tags
 }
+
 
 
 
@@ -254,12 +263,15 @@ function filterByTag(tag) {
 }
 
 
-function getAllSuggestions() {
-    const uniqueTags = new Set();
+export function getAllSuggestions() {
+    const allTags = new Set();
+
+    // Ajoutez les ingrédients
     allRecipes.forEach((recipe) => {
-        recipe.ingredients.forEach((ing) => uniqueTags.add(ing.ingredient.toLowerCase()));
-        uniqueTags.add(recipe.appliance.toLowerCase());
-        recipe.ustensils.forEach((ust) => uniqueTags.add(ust.toLowerCase()));
+        recipe.ingredients.forEach((ing) => allTags.add(ing.ingredient.toLowerCase()));
+        allTags.add(recipe.appliance.toLowerCase());
+        recipe.ustensils.forEach((ust) => allTags.add(ust.toLowerCase()));
     });
-    return Array.from(uniqueTags);
+
+    return Array.from(allTags);
 }

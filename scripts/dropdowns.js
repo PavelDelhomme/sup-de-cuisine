@@ -1,7 +1,8 @@
 // dropdowns.js
 import { isGlobalSearchActive } from "./filters.js";
 import { filteredRecipes } from "./data.js";
-import { addTag } from "./search.js";
+import { displayRecipes } from "./recipes.js";
+import { handleSearch } from "./search.js";
 
 const selectedFilters = {
     ingredients: [],
@@ -107,8 +108,64 @@ function getOptionsForType(type) {
     }
 }
 
-export function closeAllDropdowns() {
-    const dropdowns = document.querySelectorAll(".dropdown-options");
-    dropdowns.forEach(dropdown => dropdown.classList.remove("show"));
+
+
+function filterDropdownOptions(query, dropdown) {
+    const items = dropdown.querySelectorAll("li");
+    items.forEach((item) => {
+        if (item.textContent.toLowerCase().includes(query)) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
 }
 
+
+function updateFilters() {
+    applyFilters(
+        selectedFilters.ingredients,
+        selectedFilters.appliances,
+        selectedFilters.utensils
+    );
+
+    /*
+    // Mettre à jour les dropdowns après l’application des filtres
+    populateDropdown("ingredient", "ingredient-options", document.getElementById("ingredient-search"));
+    populateDropdown("appliance", "appliance-options", document.getElementById("appliance-search"));
+    populateDropdown("utensil", "utensil-options", document.getElementById("utensil-search"));
+    */
+
+    // Met à jour les recettes affichées
+    displayRecipes();
+    // Actualise les suggestions après chaque mise à jour
+    //displaySuggestions();
+}
+
+
+
+function updateBadges(type, value, selectedList) {
+    const badgeContainer = document.getElementById("selected-filters");
+
+    if (!badgeContainer) return;
+
+    const badge = document.createElement("div");
+    badge.className = "badge";
+    badge.innerHTML = `
+        <span>${value}</span>
+        <span class="remove" data-type="${type}" data-value="${value}">×</span>
+    `;
+    
+    badge.querySelector(".remove").addEventListener("click", () => {
+        const index = selectedList.indexOf(value);
+        if (index > -1) {
+            selectedList.splice(index, 1);
+            badge.remove();
+            const currentQuery = document.getElementById("search-bar").value.trim();
+            handleSearch(currentQuery, new Set([...selectedFilters.ingredients, ...selectedFilters.appliances, ...selectedFilters.utensils]));
+            //updateFilters();
+        }
+    });
+    
+    badgeContainer.appendChild(badge);
+}
