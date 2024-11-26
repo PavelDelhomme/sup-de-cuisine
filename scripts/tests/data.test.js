@@ -1,4 +1,4 @@
-import { fetchRecipes, allRecipes } from "../scripts/data.js";
+import { fetchRecipes, allRecipes } from "../data.js";
 
 describe("Chargement des données", () => {
     test("devrait charger les recettes depuis l'API", async () => {

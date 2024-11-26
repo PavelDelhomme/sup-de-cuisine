@@ -1,4 +1,4 @@
-import { filterRecipes, filteredRecipes } from "../scripts/filters.js";
+import { filterRecipes, filteredRecipes } from "../filters.js";
 
 describe("Filtrage des recettes", () => {
     test("devrait filtrer par recherche textuelle", () => {
