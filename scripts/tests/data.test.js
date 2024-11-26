@@ -1,6 +1,10 @@
 import { fetchRecipes, allRecipes } from "../data.js";
 
 describe("Chargement des données", () => {
+    beforeEach(() => {
+        allRecipes.length = 0; // Réinitialise les recettes avant chaque test
+    });
+
     test("devrait charger les recettes depuis l'API", async () => {
         const mockRecipes = [
             { name: "Recette 1", description: "Description", ingredients: [{ ingredient: "Ingrédient" }] }

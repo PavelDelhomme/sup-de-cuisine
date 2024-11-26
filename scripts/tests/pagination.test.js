@@ -1,15 +1,17 @@
-import { setupPagination, displayRecipes, filteredRecipes } from "../recipes.js"
+import { setupPagination, displayRecipes } from "../recipes.js";
 
 describe("Pagination", () => {
     beforeEach(() => {
         document.body.innerHTML = `
-        <main></main>
-        <div class="pagination"></div>
+            <main>
+                <div class="grid-container"></div>
+            </main>
+            <div class="pagination"></div>
         `;
     });
 
     test("devrait afficher le bon nombre de recettes par page", () => {
-        global.filteredRecipes = Array(20).fill({name: "Recette"});
+        global.filteredRecipes = Array(20).fill({ name: "Recette" });
         displayRecipes();
         const grid = document.querySelector(".grid-container");
         expect(grid.children.length).toBeLessThanOrEqual(9);

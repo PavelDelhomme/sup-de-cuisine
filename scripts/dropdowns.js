@@ -107,7 +107,7 @@ export function populateDropdown(type, dropdownId, searchInput) {
 }
 
 
-function getOptionsForType(type) {
+export function getOptionsForType(type) {
     if (!filteredRecipes || filteredRecipes.length === 0) return [];
 
     switch (type) {
