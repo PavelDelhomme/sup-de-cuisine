@@ -10,9 +10,8 @@
 - [ ] Ajouter une animation pour les transitions entre les pages.
 - [ ] Afficher un résumé des pages (par exemple `Page 1 sur 10`).
 
-## Renforcer l'accessibilité (a11y)
-- [ ] Tester la navigation clavier pour s'assurer que toutes les fonctionnalités sont utilisables sans souris.
-- [ ] Ajouter la navigation clavier sur les suggestions de tags.
+## Tester unitairement sur les fonctions javascript critiques
+ - [ ]
 
 ---
 
@@ -22,7 +21,8 @@
 - [x] Ajouter des balises `aria-label` pour tous les éléments interactifs (boutons, liens, filtres...).
 - [x] Tester la navigation clavier pour s'assurer que toutes les fonctionnalités sont utilisables sans souris.
 - [x] Permettre la navigation clavier sur les suggestions de tags et les icônes de recherche.
-
+- [x] Tester la navigation clavier pour s'assurer que toutes les fonctionnalités sont utilisables sans souris.
+- [x] Ajouter la navigation clavier sur les suggestions de tags.
 
 ## Gestion des filtres non fonctionnels
 - [x] Correction de l'intersection des filtres (ingrédients, ustensiles, appareils).
