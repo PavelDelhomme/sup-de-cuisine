@@ -36,39 +36,15 @@ Voici une représentation visuelle de l'algorithme utilisé :
 
 ![Diagramme de l'algorithme](algo_recherche.png)
 
-## Configuration locale avec Docker
-### Prérequis
-- Docker et Docker Compose doivent être installés.
+## Déploiement sur Vercel
 
-### Etapes
-1. Clonez ce dépôt : 
-    ```git clone https://github.com/PavelDelhomme/htmlcssjseval.git```
-    ```cd htmlcssjseval```
-2. Créer un fichier <code>Dockerfile</code>
-    ```FROM nginx:alpine```
-    ```COPY . /usr/share/nginx/html```
+Le projet est déployé et accessible publiquement via Vercel.
 
-3. Créer un fichier docker-compose.yml :
-    ```
-    version: '3.8'
-    services:
-        web:
-            build: .
-            ports:
-                - "8080:80"
-            volumes:
-                - .:/usr/share/nginx/html:ro
-    ```
-4. Lancer le conteneur :
-    ```docker-compose up --build```
-
-5. Accèdez au site web <a hef="http://localhost:8080/">http://localhost:8080/</a>
+# Lien de production :
+<a href="https://sup-de-cuisine.delhomme.ovh/"></a>
 
 
-### Déploiement
-Le site peut être déployé sur un serveur VPS avec un conteneur Docker et configurer avec Nginx Proxy Manager pour un accès HTTPS.
-
-### Structure du projet
+## Structure du projet
 - `index.html`: Page principale.
 - `styles/style.css`: Feuilles de style.
 - `scripts/main.js`: Script JS pour la logique de recherche et récupération des photos.
