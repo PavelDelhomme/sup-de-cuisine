@@ -2,7 +2,14 @@ version: '3.8'
 services:
   web:
     build: .
+    container_name: sup-de-cuisine
     ports:
       - "8484:80"
     volumes:
       - .:/usr/share/nginx/html:ro
+    networks:
+      - shared-network-copy
+
+networks:
+  shared-network-copy:
+    external: true
