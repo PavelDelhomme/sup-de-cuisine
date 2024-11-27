@@ -104,6 +104,10 @@
 
 # === Historique des commits ===
 
+## 23. Commit - Nov 27, 2024
+  - `Préparation du déploiement :`
+  - `- Mise à jour des fichiers de suivi et configuration finale.`
+
 ## 22. Commit - Nov 27, 2024
   - `Ajout et validation du responsive design pour l'interface utilisateur`
   - `- Ajout de media queries pour les tailles ≤ 400px, 401px à 600px, et 601px à 700px.`

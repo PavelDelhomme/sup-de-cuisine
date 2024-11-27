@@ -5,7 +5,6 @@ const recipesPerPage = 9;
 
 export function displayRecipes() {
     if (!Array.isArray(filteredRecipes) || filteredRecipes.length === 0) { // Vérifie si c'est un tableau valide
-        console.error("Aucune recette disponible pour l'affichage");
         displayNoResultsMessage();
         return;
     }
