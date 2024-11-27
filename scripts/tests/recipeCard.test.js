@@ -14,6 +14,11 @@ describe("Génération des cartes de recettes", () => {
         };
 
         const card = generateRecipeCard(recipe);
+        expect(card).not.toBeNull();
         expect(card.querySelector(".recipe-title").textContent).toBe(recipe.name);
     });
+});
+
+afterEach(() => {
+    jest.clearAllMocks();
 });

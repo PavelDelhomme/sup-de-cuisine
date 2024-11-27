@@ -4,9 +4,20 @@ import { generateRecipeCard } from "./recipeCard.js";
 const recipesPerPage = 9;
 
 export function displayRecipes() {
+    if (!Array.isArray(filteredRecipes) || filteredRecipes.length === 0) { // Vérifie si c'est un tableau valide
+        console.error("Aucune recette disponible pour l'affichage");
+        displayNoResultsMessage();
+        return;
+    }
+
     const main = document.querySelector("main");
     const recipeCount = document.getElementById("recipe-count");
     const paginationContainer = document.querySelector(".pagination");
+
+    if (!main || !recipeCount) {
+        console.error("Erreur : Elément DOM introuvable");
+        return;
+    }
 
     // Réinitialiser le contenu principal
     main.innerHTML = "";
@@ -44,7 +55,7 @@ export function displayRecipes() {
     console.log("Recettes affichées :", filteredRecipes);
 }
 
-function setupPagination() {
+export function setupPagination() {
     const paginationContainer = document.querySelector(".pagination") || document.createElement("div");
     paginationContainer.className = "pagination";
     const main = document.querySelector("main");
@@ -53,7 +64,20 @@ function setupPagination() {
     // Réinitialiser les boutons de pagination
     paginationContainer.innerHTML = "";
 
+    // Vérifier que des recettes sont disponibles
+    if (!Array.isArray(filteredRecipes) || filteredRecipes.length === 0) {
+        console.error("Aucune recette disponible pour la pagination.");
+        return;
+    }
+
     const totalPages = Math.ceil(filteredRecipes.length / recipesPerPage);
+
+    if (!currentPage || currentPage < 1 || currentPage > totalPages) {
+        console.warn(`'currentPage' invalide (${currentPage}). Réinitialisé à 1.`);
+        currentPage = 1;
+    }
+    
+    console.log("Total pages:", totalPages); // Ajout du log
 
     // Génération des boutons de pagination si nécessaire
     if (totalPages > 1) {
