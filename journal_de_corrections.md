@@ -1,5 +1,19 @@
 # === Documentation des problèmes et solutions ===
 
+## 20. Gestion du responsive pour les différents types d'écrans
+- *Problème* : L'interface ne s'adaptait pas correctement sur les écrans de différentes tailles, notamment sur les très petits écrans (< 400px).
+- _Solution_ :
+  - Ajout de media queries spécifiques pour les tailles ≤ 400px, 401px à 600px, et 601px à 700px.
+  - Ajustement du texte de la bannière `.banner-title` et des styles de la barre de recherche `.search-container` pour qu'ils soient lisibles sur des écrans réduits.
+  - Adaptation des grilles `.grid-container` pour passer de 1 à 3 colonnes en fonction de la largeur d'écran.
+  - Tests visuels pour vérifier le comportement sur des simulateurs d'écrans.
+
+## 19. Mise à jour des style pour être adapter sur les différentes media-queries
+- *Problème* : Lors de l'affichage de la page sur des taille d'écran différente, alors cela ne s'adapte pas
+- _Solution_ : 
+  - Ajout de `@medial (max-width: x)` pour gérer les différentes taille
+
+
 ## 18. Problème de duplication des recettes lors du chargement initial
 - *Problème* : Lors du chargement initial, le tableau `filteredRecipes` contenait des duplications en raison de plusieurs initialisations.
 - _Solution_ :
@@ -89,6 +103,14 @@
 ---
 
 # === Historique des commits ===
+
+## 22. Commit - Nov 27, 2024
+  - `Ajout et validation du responsive design pour l'interface utilisateur`
+  - `- Ajout de media queries pour les tailles ≤ 400px, 401px à 600px, et 601px à 700px.`
+  - `- Ajustement des grilles de recettes, de la barre de recherche, et du texte de la bannière.`
+  - `- Mise à jour des fichiers CSS pour inclure les ajustements responsive.`
+  - `- Tests sur simulateurs et appareils réels pour valider le rendu.`
+  - `Mise à jour des fichiers journal_de_corrections.md et taches_projets.md pour inclure les ajustements.`
 
 ## 21. Commit - Nov 27, 2024
   - `Refactorisation et finalisation des tests unitaires` :
