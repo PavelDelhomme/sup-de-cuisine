@@ -52,7 +52,6 @@ export function displayRecipes() {
 
     // Mise en place de la pagination
     setupPagination();
-    console.log("Recettes affichées :", filteredRecipes);
 }
 
 export function setupPagination() {
@@ -77,7 +76,7 @@ export function setupPagination() {
         currentPage = 1;
     }
     
-    console.log("Total pages:", totalPages); // Ajout du log
+    //console.log("Total pages:", totalPages);
 
     // Génération des boutons de pagination si nécessaire
     if (totalPages > 1) {

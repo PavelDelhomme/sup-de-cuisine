@@ -82,13 +82,7 @@ export function filterRecipes(query = "", selectedIngredients = [], selectedAppl
         return matchesQuery && matchesIngredients && matchesAppliances && matchesUtensils;
     }));
 
-    console.log("Options disponibles après filtrage (Ingrédients) :", getOptionsForType("ingredient"));
-    console.log("Options disponibles après filtrage (Appareils) :", getOptionsForType("appliance"));
-    console.log("Options disponibles après filtrage (Ustensiles) :", getOptionsForType("utensil"));
-
-
     // Met à jour les recettes affichées
-    console.log("Recettes après filtrage combiné :", filteredRecipes);
     setCurrentPage(1);
     displayRecipes();
 
