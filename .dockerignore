@@ -1,0 +1,8 @@
+# Ignorer les fichiers inutiles
+Dockerfile
+.dockerignore
+.git
+.gitignore
+node_modules
+*.log
+*.md
