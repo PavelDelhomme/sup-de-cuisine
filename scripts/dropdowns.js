@@ -138,57 +138,6 @@ export function getOptionsForType(type) {
 
 
 
-function filterDropdownOptions(query, dropdown) {
-    const items = dropdown.querySelectorAll("li");
-    items.forEach((item) => {
-        if (item.textContent.toLowerCase().includes(query)) {
-            item.style.display = "block";
-        } else {
-            item.style.display = "none";
-        }
-    });
-}
-
-
-function updateFilters() {
-    applyFilters(
-        selectedFilters.ingredients,
-        selectedFilters.appliances,
-        selectedFilters.utensils
-    );
-
-    // Met à jour les recettes affichées
-    displayRecipes();
-}
-
-
-
-function updateBadges(type, value, selectedList) {
-    const badgeContainer = document.getElementById("selected-filters");
-
-    if (!badgeContainer) return;
-
-    const badge = document.createElement("div");
-    badge.className = "badge";
-    badge.innerHTML = `
-        <span>${value}</span>
-        <span class="remove" data-type="${type}" data-value="${value}">×</span>
-    `;
-    
-    badge.querySelector(".remove").addEventListener("click", () => {
-        const index = selectedList.indexOf(value);
-        if (index > -1) {
-            selectedList.splice(index, 1);
-            badge.remove();
-            const currentQuery = document.getElementById("search-bar").value.trim();
-            handleSearch(currentQuery, new Set([...selectedFilters.ingredients, ...selectedFilters.appliances, ...selectedFilters.utensils]));
-        }
-    });
-    
-    badgeContainer.appendChild(badge);
-}
-
-
 export function closeAllDropdowns() {
     const dropdowns = document.querySelectorAll(".dropdown-options");
     dropdowns.forEach((dropdown) => dropdown.classList.remove("show"));
