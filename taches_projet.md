@@ -1,9 +1,9 @@
 # Tâches a réalisées
 
 ## Déploiement
-- [ ] Préparer la configuration pour déployer le site.
+- [x] Préparer la configuration pour déployer le site.
 - [ ] Tester le site en production pour valider le responsive et les performances.
-- [ ] Documenter les étapes de déploiement dans `README.md`.
+- [x] Documenter les étapes de déploiement dans `README.md`.
 
 # Tâches réalisées
 
