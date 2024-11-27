@@ -89,70 +89,82 @@
 ---
 
 # === Historique des commits ===
+
+## 21. Commit - Nov 27, 2024
+  - `Refactorisation et finalisation des tests unitaires` :
+  - `- Correction et validation des tests pour la pagination, la recherche et les filtres.`
+  - `- Ajout de contrôles explicites dans recipes.js pour gérer les valeurs invalides de currentPage.`
+  - `- Refactorisation du fichier suivi-tests.md avec les résultats des tests (incluant les images pour la documentation).`
+  - `- Mise à jour des fichiers taches_projet.md et journal_de_corrections.md avec les détails des corrections.`
+  - `- Nettoyage et optimisation du code JavaScript pour une meilleure lisibilité et maintenance.`
+  `Code prêt pour fusion sur la branche principale.`
+
+ 
 ## 20. Commit - Nov 26, 2024
   - `Ajout des bibliothèques de test et des premier test`
+
 ## 19. Commit - Nov 26, 2024
-- `Correction du problème de duplication des recettes lors du chargement initial dans data.js`
-- `Amélioration de la gestion des cartes de recettes dans recipeCard.js`
-- `Mise à jour des fichiers de suivi : taches_projet.md, suivi-tests.md et journal_de_corrections.md`
+  - `Correction du problème de duplication des recettes lors du chargement initial dans data.js`
+  - `Amélioration de la gestion des cartes de recettes dans recipeCard.js`
+  - `Mise à jour des fichiers de suivi : taches_projet.md, suivi-tests.md et journal_de_corrections.md`
 
 ## 18. Commits - Nov 26, 2024
-- `Ajout de 'tabindex' et de gestionnaires clavier pour les suggestions de tags et l'icône de recherche`
-- `Mise à jour des fichiers de suivi : 'taches_projet.md', 'journal_de_corrections.md', et 'suivi-tests.md'`
+  - `Ajout de 'tabindex' et de gestionnaires clavier pour les suggestions de tags et l'icône de recherche`
+  - `Mise à jour des fichiers de suivi : 'taches_projet.md', 'journal_de_corrections.md', et 'suivi-tests.md'`
 
 ## 17. Commits - Nov 26, 2024
-- `Mise à jour des fichiers de suivi pour corrections et suivi des tests`
+  - `Mise à jour des fichiers de suivi pour corrections et suivi des tests`
 
 ## 16. Commits - Nov 26, 2024
-- `Ajout des problèmes et solutions dans 'journal_de_corrections.md`
-- `Mise a jour de soucis lors de la recherche global et des filtre ainsi que la combinaison avec des tags`
-- `Complétion du suivi des tests dans 'suivi-tests.md'`
+  - `Ajout des problèmes et solutions dans 'journal_de_corrections.md`
+  - `Mise a jour de soucis lors de la recherche global et des filtre ainsi que la combinaison avec des tags`
+  - `Complétion du suivi des tests dans 'suivi-tests.md'`
 
 ## 15. Commits - Nov 25, 2024
-- `Correction des fitres actifs et des suggestions dynamiques`
-- `Ajout de diagnostics pour le débogage des résultats`
+  - `Correction des fitres actifs et des suggestions dynamiques`
+  - `Ajout de diagnostics pour le débogage des résultats`
 
 ## 14. Commits - Nov 25, 2024
-- `Etablissement de l'algorithem de recherche et début d'implementation`
+  - `Etablissement de l'algorithem de recherche et début d'implementation`
 
 ## 13. Commits - Nov 25, 2024
-- `Mise à jour des fichiers de suivi : suppression d'une tâche future et réorganisation`
+  - `Mise à jour des fichiers de suivi : suppression d'une tâche future et réorganisation`
 
 ## 12. Commits - Nov 25, 2024
-- `Mise à jour des fichiers de suivi du projet` - Ajout et modification des fichiers `journal_de_corrections.md`, `taches_projet.md` et création de `suivi-tests.md`.
+  - `Mise à jour des fichiers de suivi du projet` - Ajout et modification des fichiers `journal_de_corrections.md`, `taches_projet.md` et création de `suivi-tests.md`.
 
 ## 11. Commits - Nov 25, 2024
-- `Amélioration de la fonction displaySuggestions et gestion dynamique des tags`
+  - `Amélioration de la fonction displaySuggestions et gestion dynamique des tags`
 
 ## 10. Commits - Nov 21, 2024
-- `Gestion des données manquantes pour les cartes de recettes`.
-- `Amélioration de la présentation des cartes et tests CSS`.
+  - `Gestion des données manquantes pour les cartes de recettes`.
+  - `Amélioration de la présentation des cartes et tests CSS`.
 
 ## 9. Commits - Nov 20, 2024
-- `Correction des champs texte dans les filtres` - Ajout de la logique pour vider automatiquement le champ texte des filtres après la sélection.
+  - `Correction des champs texte dans les filtres` - Ajout de la logique pour vider automatiquement le champ texte des filtres après la sélection.
 
 ## 8. Commits - Nov 19, 2024
-- `Réorganisation du code CSS notamment` - Réorganisation du code CSS pour une meilleure lisibilité et maintenabilité.
+  - `Réorganisation du code CSS notamment` - Réorganisation du code CSS pour une meilleure lisibilité et maintenabilité.
 
 ## 7. Commits - Nov 18, 2024
-- `Intégration de Docker et ajout d'explications dans le README`.
-- `Réarrangement du filtre et ajout de la possibilité de supprimer des filtres avec des badges`.
+  - `Intégration de Docker et ajout d'explications dans le README`.
+  - `Réarrangement du filtre et ajout de la possibilité de supprimer des filtres avec des badges`.
 
 ## 6. Commits - Nov 17, 2024
-- `Ajout de la recherche d'ingrédients`.
-- `Organisation du code et gestion des recettes`.
+  - `Ajout de la recherche d'ingrédients`.
+  - `Organisation du code et gestion des recettes`.
 
 ## 5. Commits - Nov 16, 2024
-- `Amélioration de l'affichage dynamique des filtres`.
+  - `Amélioration de l'affichage dynamique des filtres`.
 
 ## 4. Commits - Nov 15, 2024
-- `Ajout de la pagination et ajustement des styles`.
+  - `Ajout de la pagination et ajustement des styles`.
 
 ## 3. Commits - Oct 28, 2024
-- `Fonctionnalité de recherche initiale implémentée avec affichage des ingrédients dans des modals`.
+  - `Fonctionnalité de recherche initiale implémentée avec affichage des ingrédients dans des modals`.
 
 ## 2. Commits - Oct 25, 2024
-- `Ajout des premières logiques JS pour les filtres`.
+  - `Ajout des premières logiques JS pour les filtres`.
 
 ## 1. First commit
-- `Mise en place initiale du projet`.
+  - `Mise en place initiale du projet`.
