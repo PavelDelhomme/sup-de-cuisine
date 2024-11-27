@@ -7,6 +7,13 @@
 
 ---
 
+## Résultats tests
+Voici une représentation visuelle de l'algorithme utilisé :
+
+![Résulats des tests](scripts/tests/tests_test.png)
+
+
+---
 ## Tests réalisés
 
 ### Recherche et filtres
@@ -36,9 +43,3 @@
 - [x] Navigation clavier sur les recettes affichées.
 
 ---
-
-## Tests à planifier
-
-### Résilience des données
-- [ ] Gestion des données manquantes dans les recettes (image par défaut, description).
-- [ ] Vérification des comportements en cas de données corrompues ou invalides.
