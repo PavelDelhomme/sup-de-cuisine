@@ -2,13 +2,14 @@ import "@testing-library/jest-dom";
 
 // Simule un DOM global minimal pour les tests
 const dom = `
-    <main></main>
-    <div id="recipe-count"></div>
+    <main>
+        <div class="grid-container"></div>
+    </main>
+    <div id="recipe-count" class="recipe-count"></div>
     <div class="pagination"></div>
     <div id="selected-filters"></div>
     <div id="tags-container"></div>
     <input type="text" id="search-bar" />
-    <div class="grid-container"></div>
     <ul id="ingredient-options"></ul>
     <ul id="appliance-options"></ul>
     <ul id="utensil-options"></ul>
@@ -17,6 +18,13 @@ const dom = `
 beforeEach(() => {
     document.body.innerHTML = dom;
 });
+
+// Mock page global
+global.setCurrentPage = jest.fn((page) => {
+    const data = require("../data.js");
+    data.currentPage = page; // Modifie directement la valeur dans le mock
+});
+
 
 // Mock global fetch
 global.fetch = jest.fn(() =>

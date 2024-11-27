@@ -22,7 +22,6 @@ export async function fetchRecipes() {
                 Array.isArray(recipe.ingredients) &&
                 recipe.ingredients.length > 0
         );
-        console.log("Recettes chargées :", allRecipes.length);
     } catch (error) {
         console.error("Erreur :", error);
         alert("Erreur lors du chargement des recettes. Veuillez vérifier votre connexion ou réessayer.");

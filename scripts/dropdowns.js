@@ -87,8 +87,6 @@ export function populateDropdown(type, dropdownId, searchInput) {
     });
 
 
-    console.log(`Options pour ${type} après filtrage :`, options);
-
     if (options.length === 0) {
         dropdown.classList.remove("show");
         return;
@@ -184,7 +182,6 @@ function updateBadges(type, value, selectedList) {
             badge.remove();
             const currentQuery = document.getElementById("search-bar").value.trim();
             handleSearch(currentQuery, new Set([...selectedFilters.ingredients, ...selectedFilters.appliances, ...selectedFilters.utensils]));
-            //updateFilters();
         }
     });
     
