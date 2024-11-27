@@ -7,8 +7,11 @@ COPY ./styles /usr/share/nginx/html/styles/
 COPY ./scripts /usr/share/nginx/html/scripts/
 COPY ./data /usr/share/nginx/html/data/
 
+# Ajout de la configuration Nginx personnalisée
+COPY ./default.conf /etc/nginx/conf.d/default.conf
+
 # Définit le répertoire de travail par défaut pour Nginx
 WORKDIR /usr/share/nginx/html
 
-# Expose le port 80 (pas nécessaire si vous utilisez un réseau Docker interne)
+# Expose le port 80 (si nécessaire pour débogage ou tests locaux)
 #EXPOSE 80
