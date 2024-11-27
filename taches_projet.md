@@ -1,21 +1,25 @@
-# Tâches à faire
+# Tâches a réalisées
 
-## Refactoriser le CSS pour les cartes
-- [ ] Adapter les styles CSS pour que les cartes affichent les informations comme dans le mockup :
-  - Image alignée à gauche.
-  - Mise en page claire et responsive.
-- [ ] Tester la compatibilité avec les médias responsives.
-
-## Améliorer le système de pagination
-- [ ] Ajouter une animation pour les transitions entre les pages.
-- [ ] Afficher un résumé des pages (par exemple `Page 1 sur 10`).
-
-## Tester unitairement sur les fonctions javascript critiques
- - [ ]
-
----
+## Déploiement
+- [ ] Préparer la configuration pour déployer le site.
+- [ ] Tester le site en production pour valider le responsive et les performances.
+- [ ] Documenter les étapes de déploiement dans `README.md`.
 
 # Tâches réalisées
+
+## Gestion du responsive
+- [x] Ajustement des grilles de recettes pour s'adapter entre 1 et 3 colonnes selon la taille de l'écran.
+- [x] Adaptation des styles `.banner-title` et `.search-container` pour les écrans ≤ 400px.
+- [x] Ajout de media queries spécifiques pour les tailles ≤ 400px, 401px à 600px, et 601px à 700px.
+- [x] Validation des modifications sur simulateurs et appareils réels.
+
+## Tester unitairement sur les fonctions JavaScript critiques
+- [x] Vérification du comportement des filtres (ingrédients, ustensiles, appareils).
+- [x] Test de la recherche globale avec des mots-clés spécifiques.
+- [x] Vérification de la mise à jour correcte des recettes après l'application des filtres.
+- [x] Vérification de la navigation entre les pages.
+- [x] Test des transitions et animations entre les pages.
+- [x] Vérification des balises ARIA sur les cartes de recettes et navigation clavier sur les suggestions.
 
 ## Renforcer l'accessibilité (a11y)
 - [x] Ajouter des balises `aria-label` pour tous les éléments interactifs (boutons, liens, filtres...).

@@ -1,13 +1,8 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');*/
-/*@import url('https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKOzY.woff2');*/
-/*@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap');*/
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap');
-
 
 /* === Global Styles === */
 body {
-    /*font-family: 'Roboto', Arial, sans-serif;*/
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
     background-color: #f8f8f8;
     margin: 0;
     padding: 20px;
@@ -80,9 +75,9 @@ body {
     position: absolute;
     width: 100%;
     z-index: 10;
-    transition: opacity 0.3s ease, transform 0.3s ease;
     transform: scaleY(0);
     transform-origin: top;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .dropdown-options.show {
@@ -137,7 +132,6 @@ body {
     padding: 8px 12px;
     border-radius: 12px;
     font-size: 0.9em;
-    cursor: default;
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -197,11 +191,7 @@ body {
 .recipe-card-img img {
     width: 100%; /* Image prend toute la largeur */
     height: 100%;
-    /*height: auto;*/
-    /*max-height: 200px; *//* Ajuste la hauteur max pour les images larges */
     object-fit: cover;
-    /*margin-bottom: 16px;*/
-    /*border-radius: 8px;*/
 }
 
 .recipe-card-img .overlay {
@@ -226,14 +216,28 @@ body {
 }
 
 /* Content Section */
+/*
 .recipe-card-content {
-    text-align: left; /* Alignement à gauche */
+    text-align: left;
     width: 100%;
     padding: 16px;
-    box-sizing: border-box; /* S'assure que le padding est inclus dans la largeur */
-    min-height: 300px; /* Ajout d'une hauteur minimale pour le contenu */
-    overflow: hidden; /* Empêche le débordement */
+    box-sizing: border-box;
+    min-height: 475px;
+    overflow: hidden;
+}*/
+.recipe-card-content {
+    min-height: 350px;
+    max-height: unset;
+    overflow-y: auto;
+    padding: 16px;
+    box-sizing: border-box;
 }
+/*
+.recipe-card-content {
+    padding: 16px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}*/
 
 
 .recipe-title {
@@ -277,6 +281,8 @@ body {
     margin-top: 8px;
     color: #666;
 }
+
+
 
 .ingredient {
     font-size: 0.9em;
@@ -349,75 +355,6 @@ body {
     background: #f0f0f0;
 }
 
-
-/* === Media Queries === */
-@media (max-width: 992px) {
-    .filter-header {
-        flex-wrap: wrap;
-    }
-
-    .filter-left {
-        flex-basis: 100%;
-        text-align: left;
-    }
-
-    .filter-right {
-        flex-basis: 100%;
-        justify-content: space-between;
-        gap: 10px;
-    }
-
-    .dropdown {
-        flex-grow: 1;
-        width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .filter-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .filter-right {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-    }
-
-    .dropdown {
-        width: 100%;
-    }
-}
-
-@media (max-width: 576px) {
-    .filter-header {
-        gap: 10px;
-    }
-
-    .filter-left {
-        font-size: 0.9em;
-    }
-
-    .filter-right {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .dropdown {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .grid-container {
-        grid-template-columns: 1fr;
-    }
-
-    .recipe-image {
-        height: 150px;
-    }
-}
 
 .suggestions {
     list-style: none;
@@ -584,4 +521,160 @@ main p strong {
     padding: 0;
     border: 0;
     overflow: hidden;
+}
+
+
+/* === Media Queries === */
+/* Largeur ≤ 400px : Une colonne */
+
+@media (max-width: 992px) {
+    .filter-header {
+        flex-wrap: wrap;
+    }
+
+    .filter-left {
+        flex-basis: 100%;
+        text-align: left;
+    }
+
+    .filter-right {
+        flex-basis: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .dropdown {
+        flex-grow: 1;
+        width: 100%;
+    }
+}
+
+/* Moyens écrans : Ajustement des filtres et des recettes */
+@media (max-width: 768px) {
+    .filter-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-right {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+}
+
+/* Petits écrans (≤ 700px) : Deux colonnes pour les recettes */
+@media (max-width: 700px) {
+    .search-container {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .search-input {
+        font-size: 0.9em;
+        padding: 10px 40px 10px 10px;
+    }
+
+    /* Grille des cartes ajustée */
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .recipe-card-container {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .recipe-card-img {
+        height: 150px;
+    }
+}
+
+/* Très petits écrans (≤ 600px) : Toujours deux colonnes */
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Une colonnes */
+        gap: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-header {
+        gap: 10px;
+    }
+
+    .filter-left {
+        font-size: 0.9em;
+    }
+
+    .filter-right {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .search-input {
+        font-size: 0.8em;
+    }
+
+    .recipe-card-content {
+        padding: 12px;
+        min-height: unset;
+    }
+
+    .ingredients-list {
+        gap: 8px;
+    }
+
+    .recipe-image {
+        height: 150px;
+    }
+}
+
+/* Largeur d'écran ≤ 400px : Une colonne */
+@media (max-width: 400px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Une seule colonne */
+        gap: 8px; /* Espacement réduit pour les très petits écrans */
+    }
+}
+
+/* Bannière et barre de recherche pour écrans très petits */
+@media (max-width: 400px) {
+    .banner-title {
+        font-size: 1.5em; /* Réduction de la taille du texte */
+        margin-bottom: 10px; /* Moins d'espace en bas */
+        padding: 10px; /* Réduction des marges */
+    }
+
+    .search-container {
+        max-width: 100%; /* S'adapte à toute la largeur */
+        margin: 0 auto;
+        padding: 0 10px; /* Ajout de padding pour éviter que la barre touche les bords */
+    }
+
+    .search-input {
+        font-size: 0.8em; /* Texte plus petit dans la barre de recherche */
+        padding: 8px 30px 8px 8px; /* Ajustement du padding */
+    }
+
+    .search-icon {
+        font-size: 1em; /* Réduction de l'icône */
+        right: 8px; /* Ajuste la position de l'icône */
+    }
+
+    .clear-btn {
+        right: 35px; /* Ajuste la position du bouton de suppression */
+    }
 }
